@@ -1,0 +1,104 @@
+import React from "react";
+import { companyData } from "@/data/company";
+import { Phone, Printer, MapPin, Building, ShieldCheck, Award } from "lucide-react";
+
+export default function Footer() {
+  return (
+    <footer className="bg-slate-950 text-slate-400 border-t border-slate-800 text-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
+          {/* Brand Info */}
+          <div className="md:col-span-5 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-lg bg-red-600 flex items-center justify-center font-black text-white text-lg shadow-md shadow-red-600/30">
+                N
+              </div>
+              <span className="font-extrabold text-xl text-white tracking-tight">
+                남경콘크리트<span className="text-red-500">(주)</span>
+              </span>
+            </div>
+            <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
+              1991년 창립 이래 30여 년간 정직한 품질과 엄격한 KS 국가표준으로 건설의 든든한 기초를
+              다져온 콘크리트 2차 제품 및 골재·레미탈 전문 제조 공급 기업입니다.
+            </p>
+            <div className="flex flex-wrap gap-2 pt-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-900 text-slate-300 border border-slate-800">
+                <ShieldCheck className="w-3.5 h-3.5 text-red-500" />
+                KS F 4004 (벽돌)
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-900 text-slate-300 border border-slate-800">
+                <ShieldCheck className="w-3.5 h-3.5 text-red-500" />
+                KS F 4002 (C종 블록)
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-900 text-emerald-400 border border-emerald-900/40">
+                <Award className="w-3.5 h-3.5 text-emerald-400" />
+                환경부 환경표지 인증
+              </span>
+            </div>
+          </div>
+
+          {/* Quick Contact & Operation Hours */}
+          <div className="md:col-span-4 space-y-3">
+            <h4 className="text-white font-bold text-base tracking-wide border-b border-slate-800 pb-2">
+              고객 상담 및 출하 배차
+            </h4>
+            <div className="space-y-2 text-sm">
+              <div className="flex items-start gap-2.5">
+                <Phone className="w-4 h-4 text-red-500 mt-1 flex-shrink-0" />
+                <div>
+                  <p className="text-white font-mono font-semibold">
+                    055-582-4347 / 055-582-4346
+                  </p>
+                  <p className="text-xs text-slate-400">직통 팩스: 055-582-4349</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <Building className="w-4 h-4 text-slate-500 mt-1 flex-shrink-0" />
+                <p className="text-xs text-slate-400">
+                  출하 시간: 평일 07:00 ~ 18:00 (토·일·공휴일 현장 협의 배차 가능)
+                </p>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 text-slate-500 mt-1 flex-shrink-0" />
+                <p className="text-xs text-slate-400">
+                  {companyData.address} {companyData.addressDetail}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Delivery & Procurement Note */}
+          <div className="md:col-span-3 space-y-3">
+            <h4 className="text-white font-bold text-base tracking-wide border-b border-slate-800 pb-2">
+              배차 인도 원칙
+            </h4>
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800/80 text-xs text-slate-400 space-y-2">
+              <p className="font-semibold text-slate-300">
+                납품장소 차상도(車上渡) 인도 원칙
+              </p>
+              <p className="leading-relaxed">
+                운송 차량 도착 후 화물 적재함 위에서 인계하며, 현장 지게차/크레인 하차 조건 또는 대형 화물(25t/15t/5t) 연계 배차가 지원됩니다.
+              </p>
+              <p className="text-[11px] text-red-400 font-medium">
+                * 조달청 나라장터 공공구매 다수공급자계약(MAS) 등록업체
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Corporate Legal Footer */}
+        <div className="mt-12 pt-8 border-t border-slate-900 text-xs text-slate-400 space-y-2">
+          <div className="flex flex-wrap gap-x-6 gap-y-1">
+            <span><strong>상호:</strong> {companyData.name}</span>
+            <span><strong>대표이사:</strong> {companyData.ceo}</span>
+            <span><strong>사업자등록번호:</strong> {companyData.businessNumber}</span>
+            <span><strong>공장 및 본사:</strong> {companyData.address} {companyData.addressDetail}</span>
+          </div>
+          <p className="text-slate-400 pt-2">
+            Copyright © {new Date().getFullYear()} {companyData.nameEn} All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}
