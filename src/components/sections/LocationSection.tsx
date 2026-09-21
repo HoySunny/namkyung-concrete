@@ -11,12 +11,14 @@ import {
   ExternalLink,
   Loader2,
   AlertCircle,
+  ShieldCheck,
 } from "lucide-react";
 
 export default function LocationSection() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [botcheck, setBotcheck] = useState(false);
 
   const [formData, setFormData] = useState({
     companyOrName: "",
@@ -31,6 +33,41 @@ export default function LocationSection() {
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMessage(null);
+
+    // 1. Anti-Spam: Web3Forms 허니팟(Honeypot) 검사
+    if (botcheck) {
+      // 봇이 숨겨진 체크박스를 건드린 경우 정상 접수로 위장하여 전송 차단
+      setTimeout(() => {
+        setFormSubmitted(true);
+        setIsSubmitting(false);
+      }, 500);
+      return;
+    }
+
+    // 2. Validation: 한국 전화번호 정규식 검사 (010, 02, 055 등 숫자와 하이픈 허용)
+    const phoneClean = formData.phone.trim().replace(/\s+/g, "");
+    const phoneRegex = /^(01[016789]|02|0[3-6][1-5]|070)-?\d{3,4}-?\d{4}$/;
+    if (!phoneRegex.test(phoneClean)) {
+      setErrorMessage(
+        "올바른 연락처 형식(예: 010-1234-5678 또는 055-582-4347)을 입력해 주세요."
+      );
+      setIsSubmitting(false);
+      return;
+    }
+
+    // 3. Validation: 메시지/상담 내용 내 웹사이트 URL(http://, https://, www.) 포함 여부 차단
+    const urlRegex = /(https?:\/\/|www\.)/i;
+    if (
+      urlRegex.test(formData.message) ||
+      urlRegex.test(formData.companyOrName) ||
+      urlRegex.test(formData.deliveryAddress)
+    ) {
+      setErrorMessage(
+        "스팸 방지를 위해 상담 내용에 웹사이트 주소(http://, https://)를 포함할 수 없습니다."
+      );
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -50,6 +87,7 @@ export default function LocationSection() {
             formData.quantity ? ` (수량: ${formData.quantity})` : ""
           }`,
           message: formData.message || "추가 요청사항 없음",
+          botcheck: botcheck,
         }),
       });
 
@@ -74,6 +112,7 @@ export default function LocationSection() {
   const handleResetForm = () => {
     setFormSubmitted(false);
     setErrorMessage(null);
+    setBotcheck(false);
     setFormData({
       companyOrName: "",
       phone: "",
@@ -215,9 +254,15 @@ export default function LocationSection() {
           {/* Right Column: Quick Quotation Form with Web3Forms */}
           <div className="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xl">
             <div className="border-b border-slate-100 pb-4 mb-6">
-              <span className="text-xs font-bold text-red-600 uppercase tracking-wider block mb-1">
-                Fast Online Quotation
-              </span>
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-red-600 uppercase tracking-wider block mb-1">
+                  Fast Online Quotation
+                </span>
+                <span className="inline-flex items-center gap-1 text-[11px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">
+                  <ShieldCheck className="w-3 h-3 text-emerald-600" />
+                  보안 안심 접수
+                </span>
+              </div>
               <h3 className="text-2xl font-extrabold text-slate-900">
                 빠른 온라인 견적 및 배차 문의
               </h3>
@@ -248,8 +293,20 @@ export default function LocationSection() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4 text-xs sm:text-sm">
+                {/* 1. Web3Forms 공식 Anti-Spam 허니팟(Honeypot) 필드 */}
+                <input
+                  type="checkbox"
+                  name="botcheck"
+                  className="hidden"
+                  style={{ display: "none" }}
+                  checked={botcheck}
+                  onChange={(e) => setBotcheck(e.target.checked)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+
                 {errorMessage && (
-                  <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 flex items-start gap-2.5 text-xs">
+                  <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 flex items-start gap-2.5 text-xs animate-shake">
                     <AlertCircle className="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" />
                     <span>{errorMessage}</span>
                   </div>
@@ -274,7 +331,7 @@ export default function LocationSection() {
                   </div>
                   <div>
                     <label className="font-semibold text-slate-700 block mb-1.5">
-                      연락처 <span className="text-red-600">*</span>
+                      연락처 (숫자 및 하이픈) <span className="text-red-600">*</span>
                     </label>
                     <input
                       type="tel"
@@ -285,7 +342,7 @@ export default function LocationSection() {
                         setFormData({ ...formData, phone: e.target.value })
                       }
                       placeholder="예: 010-1234-5678"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-red-500 focus:bg-white transition-colors"
+                      className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-red-500 focus:bg-white transition-colors font-mono"
                     />
                   </div>
                 </div>
@@ -361,9 +418,14 @@ export default function LocationSection() {
                 </div>
 
                 <div>
-                  <label className="font-semibold text-slate-700 block mb-1.5">
-                    현장 하차 조건 및 추가 요청사항
-                  </label>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="font-semibold text-slate-700">
+                      현장 하차 조건 및 추가 요청사항
+                    </label>
+                    <span className="text-[11px] text-slate-400">
+                      * URL(링크) 입력 금지
+                    </span>
+                  </div>
                   <textarea
                     rows={3}
                     name="message"
@@ -385,7 +447,7 @@ export default function LocationSection() {
                     {isSubmitting ? (
                       <>
                         <Loader2 className="w-5 h-5 animate-spin" />
-                        <span>견적 문의 전송 중...</span>
+                        <span>보안 검증 및 견적 문의 전송 중...</span>
                       </>
                     ) : (
                       <>
