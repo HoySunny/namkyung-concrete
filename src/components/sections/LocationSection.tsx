@@ -12,6 +12,7 @@ import {
   Loader2,
   AlertCircle,
   ShieldCheck,
+  ChevronDown,
 } from "lucide-react";
 
 export default function LocationSection() {
@@ -19,6 +20,8 @@ export default function LocationSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [botcheck, setBotcheck] = useState(false);
+  const [privacyAgreed, setPrivacyAgreed] = useState(false);
+  const [showPrivacyDetail, setShowPrivacyDetail] = useState(false);
 
   const [formData, setFormData] = useState({
     companyOrName: "",
@@ -34,7 +37,16 @@ export default function LocationSection() {
     setIsSubmitting(true);
     setErrorMessage(null);
 
-    // 1. Anti-Spam: Web3Forms 허니팟(Honeypot) 검사
+    // 1. 개인정보 수집 및 이용 동의 여부 필수 검증
+    if (!privacyAgreed) {
+      setErrorMessage(
+        "개인정보 수집 및 이용에 동의해 주셔야 견적 문의 접수가 가능합니다."
+      );
+      setIsSubmitting(false);
+      return;
+    }
+
+    // 2. Anti-Spam: Web3Forms 허니팟(Honeypot) 검사
     if (botcheck) {
       // 봇이 숨겨진 체크박스를 건드린 경우 정상 접수로 위장하여 전송 차단
       setTimeout(() => {
@@ -44,7 +56,7 @@ export default function LocationSection() {
       return;
     }
 
-    // 2. Validation: 한국 전화번호 정규식 검사 (010, 02, 055 등 숫자와 하이픈 허용)
+    // 3. Validation: 한국 전화번호 정규식 검사 (010, 02, 055 등 숫자와 하이픈 허용)
     const phoneClean = formData.phone.trim().replace(/\s+/g, "");
     const phoneRegex = /^(01[016789]|02|0[3-6][1-5]|070)-?\d{3,4}-?\d{4}$/;
     if (!phoneRegex.test(phoneClean)) {
@@ -55,7 +67,7 @@ export default function LocationSection() {
       return;
     }
 
-    // 3. Validation: 메시지/상담 내용 내 웹사이트 URL(http://, https://, www.) 포함 여부 차단
+    // 4. Validation: 메시지/상담 내용 내 웹사이트 URL(http://, https://, www.) 포함 여부 차단
     const urlRegex = /(https?:\/\/|www\.)/i;
     if (
       urlRegex.test(formData.message) ||
@@ -88,6 +100,7 @@ export default function LocationSection() {
           }`,
           message: formData.message || "추가 요청사항 없음",
           botcheck: botcheck,
+          privacy_agreement: "동의완료 (성함/연락처/현장주소 1년 보관 후 파기)",
         }),
       });
 
@@ -113,6 +126,8 @@ export default function LocationSection() {
     setFormSubmitted(false);
     setErrorMessage(null);
     setBotcheck(false);
+    setPrivacyAgreed(false);
+    setShowPrivacyDetail(false);
     setFormData({
       companyOrName: "",
       phone: "",
@@ -251,7 +266,7 @@ export default function LocationSection() {
             </div>
           </div>
 
-          {/* Right Column: Quick Quotation Form with Web3Forms */}
+          {/* Right Column: Quick Quotation Form with Web3Forms & Privacy Consent */}
           <div className="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xl">
             <div className="border-b border-slate-100 pb-4 mb-6">
               <div className="flex items-center justify-between">
@@ -260,7 +275,7 @@ export default function LocationSection() {
                 </span>
                 <span className="inline-flex items-center gap-1 text-[11px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">
                   <ShieldCheck className="w-3 h-3 text-emerald-600" />
-                  보안 안심 접수
+                  개인정보 안심 접수
                 </span>
               </div>
               <h3 className="text-2xl font-extrabold text-slate-900">
@@ -438,7 +453,61 @@ export default function LocationSection() {
                   />
                 </div>
 
+                {/* 개인정보보호법 준수를 위한 필수 동의 체크박스 영역 */}
                 <div className="pt-2">
+                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                    <div className="flex items-start gap-2.5">
+                      <input
+                        type="checkbox"
+                        id="privacyAgreed"
+                        required
+                        checked={privacyAgreed}
+                        onChange={(e) => setPrivacyAgreed(e.target.checked)}
+                        className="mt-0.5 w-4 h-4 rounded border-slate-300 text-red-600 focus:ring-red-500 cursor-pointer"
+                      />
+                      <div className="flex-1 flex items-center justify-between">
+                        <label
+                          htmlFor="privacyAgreed"
+                          className="font-bold text-xs text-slate-800 cursor-pointer select-none"
+                        >
+                          개인정보 수집 및 이용 동의 <span className="text-red-600">(필수)</span>
+                        </label>
+                        <button
+                          type="button"
+                          onClick={() => setShowPrivacyDetail(!showPrivacyDetail)}
+                          className="text-[11px] text-slate-500 hover:text-slate-800 flex items-center gap-0.5"
+                        >
+                          <span>{showPrivacyDetail ? "내용 닫기" : "약관 상세 보기"}</span>
+                          <ChevronDown
+                            className={`w-3 h-3 transition-transform ${
+                              showPrivacyDetail ? "rotate-180" : ""
+                            }`}
+                          />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* 상세 고지 내용 (Accordion) */}
+                    {showPrivacyDetail && (
+                      <div className="pt-2 border-t border-slate-200 text-[11px] text-slate-600 space-y-1.5 bg-white p-2.5 rounded-lg">
+                        <div>
+                          <strong>1. 수집 항목:</strong> 성함/상호명, 연락처, 납품 현장 주소
+                        </div>
+                        <div>
+                          <strong>2. 수집 목적:</strong> 단가 및 배차 견적 산출, 제품 상담 안내 회신
+                        </div>
+                        <div>
+                          <strong>3. 보유 및 이용 기간:</strong> 상담 완료 후 1년 보관 후 안전하게 파기
+                        </div>
+                        <p className="text-[10px] text-slate-400 pt-1">
+                          * 귀하는 본 동의를 거부할 권리가 있으나, 미동의 시 온라인 견적 상담 서비스 이용이 제한됩니다.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="pt-1">
                   <button
                     type="submit"
                     disabled={isSubmitting}

@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3005"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://namkyung-concrete.vercel.app"
+  ),
   title: "남경콘크리트(주) - 30년 전통의 콘크리트 벽돌·블록 제조 전문 기업",
   description:
     "KS F 4004 콘크리트 벽돌, KS F 4002 C종 속빈블록(4/6/8인치), 환경부 친환경 표지 인증, 조달청 나라장터 MAS 관급 납품. 경남 함안 대규모 제조 공장 및 모래·자갈·레미탈 원스톱 배차 시스템.",
@@ -23,6 +25,9 @@ export const metadata: Metadata = {
     "친모래",
   ],
   authors: [{ name: "남경콘크리트(주)" }],
+  verification: {
+    google: "swNWcKtBc2ClfIcXTJLzJ8TyJIfBUvgC5AguQLb_u98",
+  },
   openGraph: {
     title: "남경콘크리트(주) - 30년의 단단한 기초, 정직한 품질",
     description: "KS F 4004 벽돌 / KS F 4002 C종 블록 환경표지 획득 및 조달청 관급 등록 전문 제조공장",
@@ -135,6 +140,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
+        <meta
+          name="google-site-verification"
+          content="swNWcKtBc2ClfIcXTJLzJ8TyJIfBUvgC5AguQLb_u98"
+        />
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
