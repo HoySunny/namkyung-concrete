@@ -5,39 +5,89 @@ import { companyData } from "@/data/company";
 import {
   MapPin,
   Phone,
-  Printer,
   Truck,
   Send,
   CheckCircle2,
-  Navigation,
   ExternalLink,
-  ShieldAlert,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
 
 export default function LocationSection() {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const [formData, setFormData] = useState({
     companyOrName: "",
     phone: "",
     deliveryAddress: "",
-    productInterest: "6인치 속빈블록",
+    productInterest: "6인치 속빈블록 (NK-HB150)",
     quantity: "",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate submission
-    setFormSubmitted(true);
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "118f8f0f-cef4-42f8-b34e-f0704e803551",
+          subject: "[남경콘크리트 홈페이지] 새로운 견적/상담 문의가 접수되었습니다.",
+          from_name: "남경콘크리트 웹사이트 알림",
+          name: formData.companyOrName,
+          phone: formData.phone,
+          address: formData.deliveryAddress,
+          products: `${formData.productInterest}${
+            formData.quantity ? ` (수량: ${formData.quantity})` : ""
+          }`,
+          message: formData.message || "추가 요청사항 없음",
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setFormSubmitted(true);
+      } else {
+        setErrorMessage(
+          result.message || "문의 전송 중 오류가 발생했습니다. 대표 전화로 직접 문의해 주십시오."
+        );
+      }
+    } catch (err: any) {
+      setErrorMessage(
+        "네트워크 연결 오류로 접수되지 않았습니다. 인터넷 상태를 확인하시거나 대표전화(055-582-4347)로 연락 부탁드립니다."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleResetForm = () => {
+    setFormSubmitted(false);
+    setErrorMessage(null);
+    setFormData({
+      companyOrName: "",
+      phone: "",
+      deliveryAddress: "",
+      productInterest: "6인치 속빈블록 (NK-HB150)",
+      quantity: "",
+      message: "",
+    });
   };
 
   // Naver & Kakao map direct search URLs
-  const encodedAddress = encodeURIComponent(
-    "경상남도 함안군 법수면 대송로 290"
-  );
+  const encodedAddress = encodeURIComponent("경상남도 함안군 법수면 대송로 290");
   const kakaoMapUrl = `https://map.kakao.com/link/search/${encodedAddress}`;
   const naverMapUrl = `https://map.naver.com/v5/search/${encodedAddress}`;
-  const tmapUrl = `https://tmap.co.kr`;
 
   return (
     <section id="contact" className="py-20 lg:py-28 bg-slate-100 text-slate-900 scroll-mt-16">
@@ -131,7 +181,7 @@ export default function LocationSection() {
               </div>
             </div>
 
-            {/* Truck Dispatch & Access Guide (SPEC.md requirement) */}
+            {/* Truck Dispatch & Access Guide */}
             <div className="p-6 rounded-3xl bg-slate-900 text-white border border-slate-800 space-y-4 shadow-md">
               <div className="flex items-center gap-2 text-red-400">
                 <Truck className="w-5 h-5" />
@@ -162,7 +212,7 @@ export default function LocationSection() {
             </div>
           </div>
 
-          {/* Right Column: Quick Quotation Form */}
+          {/* Right Column: Quick Quotation Form with Web3Forms */}
           <div className="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xl">
             <div className="border-b border-slate-100 pb-4 mb-6">
               <span className="text-xs font-bold text-red-600 uppercase tracking-wider block mb-1">
@@ -177,20 +227,19 @@ export default function LocationSection() {
             </div>
 
             {formSubmitted ? (
-              <div className="p-8 text-center space-y-4 bg-emerald-50 rounded-2xl border border-emerald-200">
+              <div className="p-8 text-center space-y-4 bg-emerald-50 rounded-2xl border border-emerald-200 animate-in fade-in duration-300">
                 <div className="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center mx-auto shadow-md">
                   <CheckCircle2 className="w-7 h-7" />
                 </div>
                 <h4 className="text-xl font-bold text-slate-900">
-                  문의가 정상 접수되었습니다
+                  견적 문의가 정상 접수되었습니다.
                 </h4>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  남겨주신 연락처(<strong>{formData.phone || "기재된 번호"}</strong>)로
-                  담당 배차팀에서 신속히 견적 확인 연락을 드리겠습니다.
+                  담당자가 확인 후 기재해 주신 연락처(<strong>{formData.phone || "연락처"}</strong>)로 신속히 연락드리겠습니다.
                 </p>
                 <div className="pt-2">
                   <button
-                    onClick={() => setFormSubmitted(false)}
+                    onClick={handleResetForm}
                     className="px-5 py-2.5 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition-colors"
                   >
                     추가 문의 작성하기
@@ -199,6 +248,13 @@ export default function LocationSection() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4 text-xs sm:text-sm">
+                {errorMessage && (
+                  <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 flex items-start gap-2.5 text-xs">
+                    <AlertCircle className="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" />
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="font-semibold text-slate-700 block mb-1.5">
@@ -206,6 +262,7 @@ export default function LocationSection() {
                     </label>
                     <input
                       type="text"
+                      name="name"
                       required
                       value={formData.companyOrName}
                       onChange={(e) =>
@@ -221,6 +278,7 @@ export default function LocationSection() {
                     </label>
                     <input
                       type="tel"
+                      name="phone"
                       required
                       value={formData.phone}
                       onChange={(e) =>
@@ -238,6 +296,7 @@ export default function LocationSection() {
                   </label>
                   <input
                     type="text"
+                    name="address"
                     required
                     value={formData.deliveryAddress}
                     onChange={(e) =>
@@ -254,19 +313,34 @@ export default function LocationSection() {
                       주요 문의 품목
                     </label>
                     <select
+                      name="product"
                       value={formData.productInterest}
                       onChange={(e) =>
                         setFormData({ ...formData, productInterest: e.target.value })
                       }
                       className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-red-500 focus:bg-white transition-colors"
                     >
-                      <option value="기본 2종 콘크리트 벽돌">기본 2종 콘크리트 벽돌</option>
-                      <option value="4인치 속빈블록 (NK-HB100)">4인치 속빈블록 (NK-HB100)</option>
-                      <option value="6인치 속빈블록 (NK-HB150)">6인치 속빈블록 (NK-HB150)</option>
-                      <option value="8인치 속빈블록 (NK-HB190)">8인치 속빈블록 (NK-HB190)</option>
-                      <option value="이형 블록 (마무리/U형)">이형 블록 (마무리/U형)</option>
-                      <option value="호안옹벽블록 / 경량인방">호안옹벽블록 / 경량인방</option>
-                      <option value="친모래 / 골재 / 레미탈 일괄">친모래 / 골재 / 레미탈 일괄</option>
+                      <option value="기본 2종 콘크리트 벽돌 (KS F 4004)">
+                        기본 2종 콘크리트 벽돌 (KS F 4004)
+                      </option>
+                      <option value="4인치 속빈블록 (NK-HB100)">
+                        4인치 속빈블록 (NK-HB100)
+                      </option>
+                      <option value="6인치 속빈블록 (NK-HB150)">
+                        6인치 속빈블록 (NK-HB150)
+                      </option>
+                      <option value="8인치 속빈블록 (NK-HB190)">
+                        8인치 속빈블록 (NK-HB190)
+                      </option>
+                      <option value="이형 블록 (온마무리/반마무리/U형)">
+                        이형 블록 (온마무리/반마무리/U형)
+                      </option>
+                      <option value="호안옹벽블록 / 경량인방">
+                        호안옹벽블록 / 경량인방
+                      </option>
+                      <option value="친모래 / 골재 / 레미탈 일괄배차">
+                        친모래 / 골재 / 레미탈 일괄배차
+                      </option>
                     </select>
                   </div>
                   <div>
@@ -275,6 +349,7 @@ export default function LocationSection() {
                     </label>
                     <input
                       type="text"
+                      name="quantity"
                       value={formData.quantity}
                       onChange={(e) =>
                         setFormData({ ...formData, quantity: e.target.value })
@@ -291,11 +366,12 @@ export default function LocationSection() {
                   </label>
                   <textarea
                     rows={3}
+                    name="message"
                     value={formData.message}
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })
                     }
-                    placeholder="현장 진입로 특이사항(5톤 진입 가능 여부, 지게차 보유 여부, 납기 희망일 등)"
+                    placeholder="현장 진입로 특이사항(5톤/25톤 진입 가능 여부, 지게차 보유 여부, 납기 희망일 등)"
                     className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-red-500 focus:bg-white transition-colors"
                   />
                 </div>
@@ -303,10 +379,20 @@ export default function LocationSection() {
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-base shadow-xl shadow-red-600/30 transition-all flex items-center justify-center gap-2"
+                    disabled={isSubmitting}
+                    className="w-full py-4 rounded-xl bg-red-600 hover:bg-red-700 disabled:bg-red-400 disabled:cursor-not-allowed text-white font-bold text-base shadow-xl shadow-red-600/30 transition-all flex items-center justify-center gap-2"
                   >
-                    <Send className="w-4 h-4" />
-                    <span>무료 견적 및 배차 상담 접수</span>
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        <span>견적 문의 전송 중...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        <span>무료 견적 및 배차 상담 접수</span>
+                      </>
+                    )}
                   </button>
                 </div>
               </form>
