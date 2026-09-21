@@ -1,6 +1,6 @@
 import React from "react";
 import { companyData } from "@/data/company";
-import { Phone, Printer, MapPin, Building, ShieldCheck, Award } from "lucide-react";
+import { Phone, Printer, MapPin, Building, ShieldCheck, Award, Lock } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -86,15 +86,36 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Corporate Legal Footer */}
-        <div className="mt-12 pt-8 border-t border-slate-900 text-xs text-slate-400 space-y-2">
-          <div className="flex flex-wrap gap-x-6 gap-y-1">
-            <span><strong>상호:</strong> {companyData.name}</span>
-            <span><strong>대표이사:</strong> {companyData.ceo}</span>
+        {/* Corporate Legal & Privacy Policy Footer */}
+        <div className="mt-12 pt-8 border-t border-slate-900 text-xs text-slate-400 space-y-3">
+          <div className="flex flex-wrap gap-x-6 gap-y-1.5 leading-relaxed">
+            <span><strong>상호명:</strong> {companyData.name}</span>
+            <span><strong>대표자:</strong> {companyData.ceo}</span>
             <span><strong>사업자등록번호:</strong> {companyData.businessNumber}</span>
-            <span><strong>공장 및 본사:</strong> {companyData.address} {companyData.addressDetail}</span>
+            <span><strong>소재지:</strong> {companyData.address}</span>
+            <span><strong>연락처:</strong> TEL {companyData.tel} / FAX {companyData.fax}</span>
+            <span>
+              <strong>개인정보보호책임자:</strong> 관리부 (
+              <a
+                href="mailto:namkyung89@naver.com"
+                className="text-slate-300 hover:text-white underline underline-offset-2"
+              >
+                namkyung89@naver.com
+              </a>
+              )
+            </span>
           </div>
-          <p className="text-slate-400 pt-2">
+
+          {/* 개인정보처리방침 요약 공지 */}
+          <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80 text-[11px] text-slate-400 leading-relaxed flex items-start gap-2">
+            <Lock className="w-3.5 h-3.5 text-red-500 mt-0.5 flex-shrink-0" />
+            <p>
+              <strong className="text-slate-300 mr-1">[개인정보처리방침 요약]</strong>
+              온라인 견적 문의 시 수집되는 개인정보(성함, 연락처, 현장주소)는 견적 상담 목적 이외의 용도로 사용되지 않으며, 상담 완료 후 1년간 보관 후 안전하게 파기됩니다.
+            </p>
+          </div>
+
+          <p className="text-slate-500 pt-1 text-[11px]">
             Copyright © {new Date().getFullYear()} {companyData.nameEn} All Rights Reserved.
           </p>
         </div>
