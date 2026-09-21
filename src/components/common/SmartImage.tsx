@@ -54,7 +54,7 @@ export default function SmartImage({
     if (fallbackUnsplash) return fallbackUnsplash;
     switch (category) {
       case "hero":
-        return "https://images.unsplash.com/photo-1541888946425-d0fbb186c5f8?q=80&w=1920&auto=format&fit=crop";
+        return "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1920&auto=format&fit=crop";
       case "brick":
         return "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=800&auto=format&fit=crop";
       case "block":
@@ -70,7 +70,9 @@ export default function SmartImage({
 
   return (
     <div
-      className={`relative overflow-hidden bg-slate-100 dark:bg-slate-900 select-none group ${aspectRatio} ${className}`}
+      className={`relative overflow-hidden ${
+        category === "hero" ? "bg-slate-900" : "bg-slate-100 dark:bg-slate-900"
+      } select-none group ${aspectRatio} ${className}`}
     >
       {/* 1. Actual image attempt using standard img with onError fallback */}
       {!hasError && (

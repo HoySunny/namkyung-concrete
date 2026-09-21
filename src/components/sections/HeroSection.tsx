@@ -1,25 +1,25 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { companyData, keyMetrics } from "@/data/company";
-import { Phone, Calculator, FileText, ChevronRight, Shield, Award, CheckCircle2 } from "lucide-react";
-import SmartImage from "@/components/common/SmartImage";
+import { Phone, Calculator, FileText } from "lucide-react";
 
 export default function HeroSection() {
   return (
     <section className="relative min-h-[90vh] lg:min-h-[85vh] flex items-center justify-center overflow-hidden bg-slate-950 text-white">
-      {/* Background Image with Fallback */}
-      <div className="absolute inset-0 z-0">
-        <SmartImage
+      {/* Background Image Container with solid deep slate-900 base */}
+      <div className="absolute inset-0 z-0 bg-slate-900 overflow-hidden">
+        <Image
           src="/pic/hero/factory-panoramic.jpg"
           alt="남경콘크리트 대송공장 전경"
-          category="hero"
-          fallbackUnsplash="https://images.unsplash.com/photo-1541888946425-d0fbb186c5f8?q=80&w=1920&auto=format&fit=crop"
-          aspectRatio="aspect-auto"
-          className="w-full h-full object-cover"
+          fill
           priority
+          sizes="100vw"
+          quality={90}
+          className="object-cover object-center filter brightness-[0.7] contrast-[1.05]"
         />
-        {/* Layered industrial gradient overlay */}
+        {/* Layered industrial gradient overlay for text legibility */}
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 to-slate-900/60" />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/60" />
       </div>
