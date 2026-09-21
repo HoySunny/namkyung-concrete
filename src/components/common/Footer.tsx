@@ -95,7 +95,7 @@ export default function Footer() {
             <span><strong>소재지:</strong> {companyData.address}</span>
             <span><strong>연락처:</strong> TEL {companyData.tel} / FAX {companyData.fax}</span>
             <span>
-              <strong>개인정보보호책임자:</strong> 관리부 (
+              <strong>개인정보보호책임자:</strong> 조재완 (관리부 /{" "}
               <a
                 href="mailto:namkyung89@naver.com"
                 className="text-slate-300 hover:text-white underline underline-offset-2"
