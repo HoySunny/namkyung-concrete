@@ -40,7 +40,7 @@ export const standardBricks: ProductSpec[] = [
     certification: "KS F 4004 (제 9708호) / 환경표지 (제 32027호)",
     description:
       "정밀 자동화 압축성형 및 증기양생으로 모서리 파손이 적고 압축강도가 뛰어난 표준 콘크리트 벽돌입니다. 조달청 다수공급자계약(MAS) 등록 정품입니다.",
-    imageSrc: "/pic/products/brick-standard.jpg",
+    imageSrc: "/pic/products/brick.jpg",
     features: [
       "KS F 4004 한국산업규격 1종 기준 충족",
       "환경부 친환경 자원순환성 향상 환경표지 인증",

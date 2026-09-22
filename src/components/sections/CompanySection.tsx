@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { companyData } from "@/data/company";
+import { companyData, keyMetrics } from "@/data/company";
 import { historyTimeline } from "@/data/history";
 import { Building2, ShieldCheck, Truck, CheckCircle, Calendar, Sparkles } from "lucide-react";
 import { theme } from "@/config/theme";
@@ -33,7 +33,7 @@ export default function CompanySection() {
     <section id="about" className="py-20 lg:py-28 bg-white text-slate-900 scroll-mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-14">
           <span className="text-xs font-bold uppercase tracking-wider text-red-600 bg-red-50 px-3 py-1 rounded-full border border-red-200">
             Company Overview
           </span>
@@ -46,6 +46,29 @@ export default function CompanySection() {
             1991년 경남 함안 대송리에 둥지를 튼 이래, 30여 년간 오직 단단한 건축의 기초가 되는
             콘크리트 2차 제품을 정직하고 묵묵하게 생산해 왔습니다.
           </p>
+        </div>
+
+        {/* 4 Core Metrics Infographic Grid (Hero에서 회사 소개로 통합 이전) */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-16">
+          {keyMetrics.map((item, idx) => (
+            <div
+              key={idx}
+              className="p-5 sm:p-6 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-sm hover:shadow-md transition-all text-slate-900 group"
+            >
+              <div className="text-xs sm:text-sm mb-1.5 text-slate-600 font-medium">
+                {item.label}
+              </div>
+              <div className="flex items-baseline gap-1">
+                <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-950 font-mono">
+                  {item.value}
+                </span>
+                <span className="text-sm sm:text-base font-bold text-red-600">
+                  {item.unit}
+                </span>
+              </div>
+              <div className="text-xs mt-2 text-slate-500 line-clamp-1">{item.desc}</div>
+            </div>
+          ))}
         </div>
 
         {/* 3 Core Strengths Cards */}

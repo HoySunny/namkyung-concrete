@@ -3,7 +3,6 @@ import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import FloatingBar from "@/components/common/FloatingBar";
 import HeroSection from "@/components/sections/HeroSection";
-import CategoryQuickHub from "@/components/sections/CategoryQuickHub";
 import CompanySection from "@/components/sections/CompanySection";
 import ProductsSection from "@/components/sections/ProductsSection";
 import CalculatorSection from "@/components/sections/CalculatorSection";
@@ -18,9 +17,6 @@ export default function Home() {
 
       {/* Hero Section with factory background and key counters */}
       <HeroSection />
-
-      {/* Product Category Quick Hub Grid */}
-      <CategoryQuickHub />
 
       {/* Company Overview, Strengths & History Timeline */}
       <CompanySection />

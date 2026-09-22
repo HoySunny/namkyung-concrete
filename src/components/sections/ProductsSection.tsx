@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import {
   standardBricks,
   basicBlocks,
@@ -233,17 +234,18 @@ export default function ProductsSection() {
                 key={brick.id}
                 className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-lg grid grid-cols-1 lg:grid-cols-12 gap-0"
               >
-                <div className="lg:col-span-5 relative">
-                  <SmartImage
-                    src={brick.imageSrc}
+                <div className="lg:col-span-5 relative min-h-[320px] bg-slate-100 overflow-hidden">
+                  {/* 회색 스켈레톤(bg-slate-100 animate-pulse)으로 로드 전 레이아웃 덜컹거림 방지 */}
+                  <div className="absolute inset-0 bg-slate-100 animate-pulse flex items-center justify-center -z-0">
+                    <span className="text-xs text-slate-400">콘크리트 벽돌 이미지 로딩 중...</span>
+                  </div>
+                  <Image
+                    src="/pic/products/brick.jpg"
                     alt={brick.title}
-                    title={brick.name}
-                    subtitle={`규격: ${brick.dimensions} mm`}
-                    category="brick"
-                    aspectRatio="aspect-[4/3] lg:aspect-auto"
+                    fill
                     priority={true}
-                    sizes="(max-width: 1024px) 100vw, 45vw"
-                    className="h-full w-full object-cover min-h-[320px]"
+                    sizes="(max-width: 768px) 100vw, 400px"
+                    className="object-cover object-center relative z-10"
                   />
                 </div>
 
