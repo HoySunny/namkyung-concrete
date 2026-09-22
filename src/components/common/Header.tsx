@@ -86,7 +86,7 @@ export default function Header() {
             <Phone className="w-4 h-4 animate-bounce" />
             <div className="text-left">
               <span className="text-[10px] block text-red-200 leading-none">빠른 견적/배차 문의</span>
-              <span className="font-mono text-sm leading-tight font-bold">TEL 055-582-4346~7</span>
+              <span className="font-mono text-sm leading-tight font-bold">055-582-4346~7</span>
             </div>
           </a>
         </div>
