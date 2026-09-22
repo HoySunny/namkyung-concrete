@@ -15,6 +15,7 @@ interface SmartImageProps {
   aspectRatio?: string;
   fill?: boolean;
   priority?: boolean;
+  sizes?: string;
 }
 
 export default function SmartImage({
@@ -28,6 +29,7 @@ export default function SmartImage({
   aspectRatio = "aspect-[4/3]",
   fill = false,
   priority = false,
+  sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
 }: SmartImageProps) {
   const [hasError, setHasError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -74,22 +76,32 @@ export default function SmartImage({
         category === "hero" ? "bg-slate-900" : "bg-slate-100 dark:bg-slate-900"
       } select-none group ${aspectRatio} ${className}`}
     >
-      {/* 1. Actual image attempt using standard img with onError fallback */}
+      {/* 0. Skeleton pulse placeholder while image is loading to eliminate CLS */}
+      {!isLoaded && !hasError && (
+        <div className="absolute inset-0 bg-slate-200 dark:bg-slate-800 animate-pulse flex items-center justify-center z-[1]">
+          <div className="w-8 h-8 rounded-full border-2 border-slate-300 dark:border-slate-700 border-t-red-500 animate-spin opacity-40" />
+        </div>
+      )}
+
+      {/* 1. Next.js Optimized Image with responsive sizes and lazy/priority */}
       {!hasError && (
-        <img
+        <Image
           src={src}
           alt={alt}
+          fill
+          sizes={sizes}
+          priority={priority}
+          quality={85}
           onLoad={() => setIsLoaded(true)}
           onError={() => setHasError(true)}
-          className={`w-full h-full object-cover transition-opacity duration-500 ${
+          className={`object-cover object-center transition-opacity duration-300 ${
             isLoaded ? "opacity-100" : "opacity-0"
           }`}
-          loading={priority ? "eager" : "lazy"}
         />
       )}
 
-      {/* 2. Fallback UI when file does not exist yet */}
-      {(!isLoaded || hasError) && (
+      {/* 2. Fallback UI when file does not exist or fails to load */}
+      {hasError && (
         <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
           {/* Subtle industrial background pattern or Unsplash backdrop */}
           {unsplashUrl && category !== "cert" && category !== "logo" ? (

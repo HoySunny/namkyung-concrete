@@ -397,11 +397,11 @@ export default function CalculatorSection() {
 
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <a
-                href={`tel:${companyData.tel}`}
+                href={`tel:${companyData.telDirect}`}
                 className="flex-1 flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white text-sm font-bold shadow-lg shadow-red-600/30 transition-all"
               >
                 <Phone className="w-4 h-4" />
-                <span>계산 결과로 전화 상담 ({companyData.tel})</span>
+                <span>계산 결과로 전화 상담 ({companyData.telDirect})</span>
               </a>
               <a
                 href="#contact"

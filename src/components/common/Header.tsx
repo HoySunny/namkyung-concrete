@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { Phone, Menu, X, ShieldCheck, ChevronRight } from "lucide-react";
 import { companyData } from "@/data/company";
 
@@ -35,8 +36,15 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Logo & CI */}
         <a href="#" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-lg bg-red-600 flex items-center justify-center font-black text-white text-xl shadow-lg shadow-red-600/30 group-hover:scale-105 transition-transform">
-            N
+          <div className="relative w-10 h-10 flex-shrink-0">
+            <Image
+              src="/pic/logo/symbol.png"
+              alt="남경콘크리트 심볼"
+              width={40}
+              height={40}
+              priority
+              className="w-10 h-10 object-contain rounded-lg shadow-md group-hover:scale-105 transition-transform"
+            />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
@@ -73,13 +81,13 @@ export default function Header() {
         {/* Call to Action Button */}
         <div className="hidden sm:flex items-center gap-3">
           <a
-            href={`tel:${companyData.tel}`}
+            href={`tel:${companyData.telDirect}`}
             className="flex items-center gap-2.5 px-4 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold text-sm shadow-md shadow-red-600/25 transition-all transform hover:-translate-y-0.5"
           >
             <Phone className="w-4 h-4 animate-bounce" />
             <div className="text-left">
               <span className="text-[10px] block text-red-200 leading-none">빠른 견적/배차 문의</span>
-              <span className="font-mono text-sm leading-tight">{companyData.tel}</span>
+              <span className="font-mono text-sm leading-tight">{companyData.telDirect}</span>
             </div>
           </a>
         </div>
@@ -110,11 +118,11 @@ export default function Header() {
           ))}
           <div className="pt-3">
             <a
-              href={`tel:${companyData.tel}`}
+              href={`tel:${companyData.telDirect}`}
               className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-red-600 text-white font-bold text-base shadow-lg shadow-red-600/30"
             >
               <Phone className="w-5 h-5" />
-              <span>전화 상담 바로 연결 ({companyData.tel})</span>
+              <span>전화 상담 바로 연결 ({companyData.telDirect})</span>
             </a>
           </div>
         </div>

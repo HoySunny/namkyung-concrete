@@ -1,12 +1,113 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { certificationsData, CertificationItem } from "@/data/certifications";
+import { companyData } from "@/data/company";
 import SmartImage from "@/components/common/SmartImage";
-import { ShieldCheck, Award, FileCheck, CheckCircle2, X, ExternalLink } from "lucide-react";
+import { ShieldCheck, Award, FileCheck, CheckCircle2, X, ChevronLeft, ChevronRight } from "lucide-react";
+
+// Mini Carousel Subcomponent for individual certificate cards
+function CertCardImage({
+  cert,
+  onSelect,
+}: {
+  cert: CertificationItem;
+  onSelect: (cert: CertificationItem, pageIndex: number) => void;
+}) {
+  const images = cert.images && cert.images.length > 0 ? cert.images : [cert.imageSrc];
+  const [activeIndex, setActiveIndex] = useState(0);
+  const isMulti = images.length > 1;
+
+  // Auto crossfade every 3.5s if multiple images exist
+  useEffect(() => {
+    if (!isMulti) return;
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % images.length);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, [isMulti, images.length]);
+
+  return (
+    <div className="relative overflow-hidden border-b border-slate-200 bg-white group/slider">
+      {/* Image container with 3:4 aspect ratio */}
+      <div
+        className="relative aspect-[3/4] cursor-pointer"
+        onClick={() => onSelect(cert, activeIndex)}
+      >
+        {images.map((imgSrc, idx) => (
+          <div
+            key={imgSrc}
+            className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+              idx === activeIndex ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+            }`}
+          >
+            <SmartImage
+              src={imgSrc}
+              alt={`${cert.title} - ${idx + 1}`}
+              title={cert.title}
+              subtitle={cert.imageLabels?.[idx] || cert.certNumber}
+              category="cert"
+              aspectRatio="aspect-[3/4]"
+              className="w-full h-full object-cover group-hover/slider:scale-105 transition-transform duration-500"
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Top Left Badge */}
+      <div className="absolute top-3 left-3 z-20 pointer-events-none">
+        <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-900/85 text-white backdrop-blur-sm border border-white/20">
+          {cert.badge}
+        </span>
+      </div>
+
+      {/* Bottom Right Multiple Indicator & Manual Toggle Tabs */}
+      {isMulti && (
+        <div className="absolute bottom-2.5 right-2.5 z-20 flex items-center gap-1.5 bg-slate-900/85 backdrop-blur-md px-2 py-1 rounded-lg border border-white/20 shadow-md">
+          {images.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveIndex(idx);
+              }}
+              className={`px-1.5 py-0.5 text-[10px] font-bold rounded transition-all ${
+                idx === activeIndex
+                  ? "bg-red-600 text-white shadow"
+                  : "text-slate-300 hover:text-white hover:bg-white/20"
+              }`}
+              title={`${idx + 1}번 인증서 보기`}
+            >
+              {idx + 1}
+            </button>
+          ))}
+          <span className="text-[10px] text-slate-300 font-medium pl-0.5">
+            {cert.imageLabels?.[activeIndex]?.includes("벽돌")
+              ? "벽돌"
+              : cert.imageLabels?.[activeIndex]?.includes("블록")
+              ? "블록"
+              : `${activeIndex + 1}/${images.length}`}
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function CertificationsSection() {
   const [selectedCert, setSelectedCert] = useState<CertificationItem | null>(null);
+  const [modalPageIndex, setModalPageIndex] = useState<number>(0);
+
+  const handleOpenModal = (cert: CertificationItem, pageIndex: number = 0) => {
+    setSelectedCert(cert);
+    setModalPageIndex(pageIndex);
+  };
+
+  const modalImages = selectedCert
+    ? selectedCert.images && selectedCert.images.length > 0
+      ? selectedCert.images
+      : [selectedCert.imageSrc]
+    : [];
 
   return (
     <section id="certifications" className="py-20 lg:py-28 bg-white text-slate-900 scroll-mt-16">
@@ -32,26 +133,8 @@ export default function CertificationsSection() {
               key={cert.id}
               className="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden hover:border-red-300 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
             >
-              {/* Certificate Image Frame */}
-              <div
-                className="relative cursor-pointer overflow-hidden border-b border-slate-200 bg-white"
-                onClick={() => setSelectedCert(cert)}
-              >
-                <SmartImage
-                  src={cert.imageSrc}
-                  alt={cert.title}
-                  title={cert.title}
-                  subtitle={cert.certNumber}
-                  category="cert"
-                  aspectRatio="aspect-[3/4]"
-                  className="w-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-3 left-3">
-                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-900/80 text-white backdrop-blur-sm border border-white/20">
-                    {cert.badge}
-                  </span>
-                </div>
-              </div>
+              {/* Interactive Certificate Image with Mini Carousel */}
+              <CertCardImage cert={cert} onSelect={handleOpenModal} />
 
               {/* Certificate Content */}
               <div className="p-5 flex-1 flex flex-col justify-between">
@@ -83,10 +166,15 @@ export default function CertificationsSection() {
 
                 <div className="pt-4 mt-4 border-t border-slate-200">
                   <button
-                    onClick={() => setSelectedCert(cert)}
-                    className="w-full py-2 rounded-lg bg-white hover:bg-slate-100 text-xs font-semibold text-slate-700 border border-slate-200 transition-colors"
+                    onClick={() => handleOpenModal(cert, 0)}
+                    className="w-full py-2 rounded-lg bg-white hover:bg-slate-100 text-xs font-semibold text-slate-700 border border-slate-200 transition-colors flex items-center justify-center gap-1.5"
                   >
-                    인증서 크게 보기
+                    <span>인증서 크게 보기</span>
+                    {cert.images && cert.images.length > 1 && (
+                      <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-red-100 text-red-600">
+                        2종
+                      </span>
+                    )}
                   </button>
                 </div>
               </div>
@@ -112,19 +200,19 @@ export default function CertificationsSection() {
 
           <div className="flex-shrink-0">
             <a
-              href={`tel:${certificationsData[0].certNumber ? "055-582-4347" : ""}`}
+              href={`tel:${companyData.telDirect}`}
               className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm shadow-md shadow-red-600/30 transition-all"
             >
-              <span>시험성적서/서류 요청 문의</span>
+              <span>시험성적서/서류 요청 문의 ({companyData.telDirect})</span>
             </a>
           </div>
         </div>
       </div>
 
-      {/* Modal Lightbox for Certificate View */}
+      {/* Modal Lightbox for Certificate View with multi-page support */}
       {selectedCert && (
         <div
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4"
           onClick={() => setSelectedCert(null)}
         >
           <div
@@ -133,17 +221,17 @@ export default function CertificationsSection() {
           >
             <button
               onClick={() => setSelectedCert(null)}
-              className="absolute top-4 right-4 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors"
+              className="absolute top-4 right-4 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors z-20"
               aria-label="닫기"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <div className="mb-4">
+            <div className="mb-4 pr-10">
               <span className="text-xs font-bold text-red-600 uppercase tracking-wider">
                 {selectedCert.badge}
               </span>
-              <h3 className="text-xl font-extrabold text-slate-900 mt-1">
+              <h3 className="text-xl font-extrabold text-slate-900 mt-1 leading-snug">
                 {selectedCert.title}
               </h3>
               <p className="text-xs text-slate-500 font-mono mt-0.5">
@@ -151,16 +239,61 @@ export default function CertificationsSection() {
               </p>
             </div>
 
-            <div className="rounded-2xl overflow-hidden border border-slate-200 mb-4 bg-slate-100">
+            {/* Multiple Certificate Page Toggle in Modal */}
+            {modalImages.length > 1 && (
+              <div className="flex items-center gap-2 mb-3 bg-slate-100 p-1.5 rounded-xl">
+                {modalImages.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setModalPageIndex(idx)}
+                    className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all ${
+                      modalPageIndex === idx
+                        ? "bg-red-600 text-white shadow-sm"
+                        : "bg-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-200"
+                    }`}
+                  >
+                    {selectedCert.imageLabels?.[idx] || `${idx + 1}페이지`}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Certificate Image Frame */}
+            <div className="rounded-2xl overflow-hidden border border-slate-200 mb-4 bg-slate-100 relative">
               <SmartImage
-                src={selectedCert.imageSrc}
-                alt={selectedCert.title}
+                key={modalImages[modalPageIndex]}
+                src={modalImages[modalPageIndex]}
+                alt={`${selectedCert.title} - ${modalPageIndex + 1}`}
                 title={selectedCert.title}
-                subtitle={selectedCert.certNumber}
+                subtitle={selectedCert.imageLabels?.[modalPageIndex] || selectedCert.certNumber}
                 category="cert"
                 aspectRatio="aspect-[3/4]"
                 className="w-full"
+                priority={true}
               />
+
+              {modalImages.length > 1 && (
+                <>
+                  <button
+                    onClick={() =>
+                      setModalPageIndex(
+                        (prev) => (prev - 1 + modalImages.length) % modalImages.length
+                      )
+                    }
+                    className="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-sm transition-all"
+                    aria-label="이전 인증서"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => setModalPageIndex((prev) => (prev + 1) % modalImages.length)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-sm transition-all"
+                    aria-label="다음 인증서"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </>
+              )}
             </div>
 
             <p className="text-xs text-slate-600 leading-relaxed mb-4">

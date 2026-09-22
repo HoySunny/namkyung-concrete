@@ -8,6 +8,8 @@ export interface CertificationItem {
   targetItems: string;
   description: string;
   imageSrc: string;
+  images?: string[];
+  imageLabels?: string[];
   badge: string;
 }
 
@@ -23,6 +25,8 @@ export const certificationsData: CertificationItem[] = [
     description:
       "한국산업표준(KS)의 엄격한 압축강도, 흡수율 및 치수 허용차 기준을 완벽하게 충족하며 1993년 이래 매년 사후관리를 통과한 정품 인증입니다.",
     imageSrc: "/pic/certs/cert-ks-brick.jpg",
+    images: ["/pic/certs/cert-ks-brick.jpg"],
+    imageLabels: ["KS F 4004 벽돌 인증서"],
     badge: "KS 국가표준 인증",
   },
   {
@@ -36,6 +40,8 @@ export const certificationsData: CertificationItem[] = [
     description:
       "압축강도 C종(8.0 N/mm² 이상) 기준의 정밀 자동화 속빈 콘크리트 블록으로 구조 내력과 안전성을 공인받았습니다.",
     imageSrc: "/pic/certs/cert-ks-block.jpg",
+    images: ["/pic/certs/cert-ks-block.jpg"],
+    imageLabels: ["KS F 4002 C종 블록 인증서"],
     badge: "KS 국가표준 인증",
   },
   {
@@ -49,6 +55,14 @@ export const certificationsData: CertificationItem[] = [
     description:
       "순환골재 및 친환경 원자재 배합 기술을 적용하여 환경오염 물질 저감 및 자원순환성 향상 인증 기준을 통과하였습니다.",
     imageSrc: "/pic/certs/cert-eco-label.jpg",
+    images: [
+      "/pic/certs/cert-eco-label.jpg",
+      "/pic/certs/cert-eco-label2.jpg",
+    ],
+    imageLabels: [
+      "환경표지 인증서 1 (벽돌 EL245)",
+      "환경표지 인증서 2 (블록 EL245)",
+    ],
     badge: "친환경 자원순환 마크",
   },
   {
@@ -62,6 +76,14 @@ export const certificationsData: CertificationItem[] = [
     description:
       "제조 설비, 공장 면적, 상시 생산 인력 등 공공기관 납품 자격을 검증받아 중간 유통 마진 없는 정직한 공장도가로 공공기관에 납품합니다.",
     imageSrc: "/pic/certs/cert-direct-production.jpg",
+    images: [
+      "/pic/certs/cert-direct-production.jpg",
+      "/pic/certs/cert-direct-production2.jpg",
+    ],
+    imageLabels: [
+      "직접생산확인 1 (콘크리트벽돌)",
+      "직접생산확인 2 (속빈콘크리트블록)",
+    ],
     badge: "조달청 직접생산 확인",
   },
 ];

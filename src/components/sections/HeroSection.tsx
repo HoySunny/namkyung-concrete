@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { companyData, keyMetrics } from "@/data/company";
-import { Phone, Calculator, FileText } from "lucide-react";
+import { Phone, Calculator, FileText, Download, Send } from "lucide-react";
 
 export default function HeroSection() {
   return (
@@ -17,11 +17,11 @@ export default function HeroSection() {
           priority
           sizes="100vw"
           quality={90}
-          className="object-cover object-center filter brightness-[0.7] contrast-[1.05]"
+          className="object-cover object-center filter brightness-[0.88] contrast-[1.05]"
         />
-        {/* Layered industrial gradient overlay for text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 to-slate-900/60" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/60" />
+        {/* Soft, bright overlay (35%~40% level) for enhanced photo clarity while ensuring text legibility */}
+        <div className="absolute inset-0 bg-black/35" />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/45 to-transparent" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 w-full">
@@ -33,7 +33,7 @@ export default function HeroSection() {
           </div>
 
           {/* Main Slogan (SPEC.md requirement) */}
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] text-balance mb-6">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] text-balance mb-6 drop-shadow-md">
             30년의 단단한 기초,
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-rose-400 to-amber-300">
@@ -43,7 +43,7 @@ export default function HeroSection() {
           </h1>
 
           {/* Sub Copy */}
-          <p className="text-base sm:text-xl text-slate-300 leading-relaxed font-normal mb-8 max-w-2xl">
+          <p className="text-base sm:text-xl text-slate-200 leading-relaxed font-normal mb-8 max-w-2xl drop-shadow">
             한국산업규격 <strong className="text-white">KS F 4004(벽돌)</strong> ·{" "}
             <strong className="text-white">KS F 4002(C종 블록)</strong> 인증 및 환경부 친환경 자원순환
             환경표지 획득. 조달청 나라장터 공공구매 다수공급자계약(MAS) 정품 제조 공장입니다.
@@ -52,27 +52,36 @@ export default function HeroSection() {
           {/* CTA Buttons */}
           <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-14">
             <a
+              href="#contact"
+              className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-base shadow-xl shadow-red-600/30 transition-all transform hover:-translate-y-0.5"
+            >
+              <Send className="w-4 h-4" />
+              <span>온라인 견적 문의</span>
+            </a>
+
+            <a
+              href="/docs/catalog.pdf"
+              download="남경콘크리트_제품카탈로그.pdf"
+              className="flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-base border border-white/30 backdrop-blur-md transition-all hover:border-white/60"
+            >
+              <Download className="w-4 h-4 text-red-400" />
+              <span>카탈로그 다운로드</span>
+            </a>
+
+            <a
               href="#calculator"
-              className="flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-base shadow-xl shadow-red-600/30 transition-all transform hover:-translate-y-0.5"
+              className="flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-white font-medium text-base border border-slate-700 backdrop-blur-md transition-all hover:border-slate-500"
             >
-              <Calculator className="w-5 h-5" />
-              <span>간이 물량 계산기</span>
+              <Calculator className="w-4 h-4 text-amber-400" />
+              <span>물량 계산기</span>
             </a>
 
             <a
-              href="#products"
-              className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-white font-semibold text-base border border-slate-700 backdrop-blur-md transition-all hover:border-slate-500"
-            >
-              <FileText className="w-5 h-5 text-slate-400" />
-              <span>규격표 바로보기</span>
-            </a>
-
-            <a
-              href={`tel:${companyData.tel}`}
-              className="flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-base border border-white/20 backdrop-blur-md transition-all"
+              href={`tel:${companyData.telDirect}`}
+              className="flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white font-medium text-base border border-slate-700/80 backdrop-blur-md transition-all"
             >
               <Phone className="w-4 h-4 text-emerald-400" />
-              <span>{companyData.tel}</span>
+              <span>직통 {companyData.telDirect}</span>
             </a>
           </div>
         </div>

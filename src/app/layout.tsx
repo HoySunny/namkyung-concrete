@@ -42,6 +42,11 @@ export const metadata: Metadata = {
       },
     ],
   },
+  icons: {
+    icon: "/pic/logo/symbol.png",
+    shortcut: "/pic/logo/symbol.png",
+    apple: "/pic/logo/symbol.png",
+  },
 };
 
 export const viewport: Viewport = {

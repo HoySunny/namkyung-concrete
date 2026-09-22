@@ -43,11 +43,11 @@ export default function FloatingBar() {
         </a>
 
         <a
-          href={`tel:${companyData.tel}`}
+          href={`tel:${companyData.telDirect}`}
           className="flex-1 flex items-center justify-center gap-2 py-3 px-3 rounded-xl bg-red-600 text-white text-sm font-bold shadow-lg shadow-red-600/30 hover:bg-red-700 transition-colors"
         >
           <Phone className="w-4 h-4 animate-pulse" />
-          <span>전화상담 연결</span>
+          <span>직통전화 ({companyData.telDirect})</span>
         </a>
       </div>
     </>

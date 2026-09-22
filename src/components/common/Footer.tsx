@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { companyData } from "@/data/company";
 import { Phone, Printer, MapPin, Building, ShieldCheck, Award, Lock } from "lucide-react";
 
@@ -10,8 +11,14 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-red-600 flex items-center justify-center font-black text-white text-lg shadow-md shadow-red-600/30">
-                N
+              <div className="relative w-9 h-9 flex-shrink-0">
+                <Image
+                  src="/pic/logo/symbol.png"
+                  alt="남경콘크리트 심볼"
+                  width={36}
+                  height={36}
+                  className="w-9 h-9 object-contain rounded-lg shadow-sm"
+                />
               </div>
               <span className="font-extrabold text-xl text-white tracking-tight">
                 남경콘크리트<span className="text-red-500">(주)</span>
@@ -46,10 +53,19 @@ export default function Footer() {
               <div className="flex items-start gap-2.5">
                 <Phone className="w-4 h-4 text-red-500 mt-1 flex-shrink-0" />
                 <div>
-                  <p className="text-white font-mono font-semibold">
-                    055-582-4347 / 055-582-4346
+                  <div className="mb-1">
+                    <span className="text-[11px] text-red-400 font-semibold block">빠른 견적 / 출하 배차 직통</span>
+                    <a
+                      href={`tel:${companyData.telDirect}`}
+                      className="text-white font-mono font-bold text-base hover:text-red-400 transition-colors"
+                    >
+                      {companyData.telDirect}
+                    </a>
+                  </div>
+                  <p className="text-slate-300 font-mono text-xs">
+                    대표 유선: {companyData.tel} / {companyData.telSecondary}
                   </p>
-                  <p className="text-xs text-slate-400">직통 팩스: 055-582-4349</p>
+                  <p className="text-xs text-slate-400">직통 팩스: {companyData.fax}</p>
                 </div>
               </div>
               <div className="flex items-start gap-2.5">

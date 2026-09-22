@@ -115,7 +115,7 @@ export default function LocationSection() {
       }
     } catch (err: any) {
       setErrorMessage(
-        "네트워크 연결 오류로 접수되지 않았습니다. 인터넷 상태를 확인하시거나 대표전화(055-582-4347)로 연락 부탁드립니다."
+        "네트워크 연결 오류로 접수되지 않았습니다. 인터넷 상태를 확인하시거나 직통전화(055-582-4348)로 연락 부탁드립니다."
       );
     } finally {
       setIsSubmitting(false);
@@ -259,7 +259,7 @@ export default function LocationSection() {
                 <li className="flex items-start gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 flex-shrink-0" />
                   <span>
-                    <strong>직통 유선 번호:</strong> 055-582-4347 / 055-582-4346 (팩스 055-582-4349)
+                    <strong>빠른 견적/출하 직통:</strong> <a href={`tel:${companyData.telDirect}`} className="text-red-600 font-bold hover:underline">{companyData.telDirect}</a> (대표 055-582-4347 / 팩스 055-582-4349)
                   </span>
                 </li>
               </ul>
@@ -532,10 +532,10 @@ export default function LocationSection() {
             <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
               <span>급하신 견적은 전화 주시면 즉시 상담 가능합니다.</span>
               <a
-                href={`tel:${companyData.tel}`}
+                href={`tel:${companyData.telDirect}`}
                 className="font-bold text-red-600 hover:underline"
               >
-                {companyData.tel}
+                {companyData.telDirect}
               </a>
             </div>
           </div>

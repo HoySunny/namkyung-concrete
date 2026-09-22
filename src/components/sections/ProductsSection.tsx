@@ -77,7 +77,7 @@ export default function ProductsSection() {
           <div className="space-y-8 animate-in fade-in duration-300">
             {/* Overview Card */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {basicBlocks.map((block) => (
+              {basicBlocks.map((block, idx) => (
                 <div
                   key={block.id}
                   className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-red-200 transition-all flex flex-col"
@@ -89,6 +89,8 @@ export default function ProductsSection() {
                     subtitle={`규격: ${block.dimensions} mm`}
                     category="block"
                     aspectRatio="aspect-[16/10]"
+                    priority={idx === 0}
+                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
 
                   <div className="p-6 flex-1 flex flex-col justify-between">
@@ -230,6 +232,8 @@ export default function ProductsSection() {
                     subtitle={`규격: ${brick.dimensions} mm`}
                     category="brick"
                     aspectRatio="aspect-[4/3] lg:aspect-auto"
+                    priority={true}
+                    sizes="(max-width: 1024px) 100vw, 45vw"
                     className="h-full w-full object-cover min-h-[320px]"
                   />
                 </div>
