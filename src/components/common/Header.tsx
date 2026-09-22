@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Phone, Menu, X, ShieldCheck, ChevronRight } from "lucide-react";
 import { companyData } from "@/data/company";
+import { theme } from "@/config/theme";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -28,9 +29,7 @@ export default function Header() {
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-slate-900/95 text-white backdrop-blur-md shadow-md py-3"
-          : "bg-slate-900 text-white py-4 border-b border-slate-800"
+        isScrolled ? theme.header.wrapperScrolled : theme.header.wrapperStatic
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -48,14 +47,14 @@ export default function Header() {
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-extrabold text-lg tracking-tight text-white">
+              <span className={`font-extrabold text-lg tracking-tight ${theme.header.logoTitle}`}>
                 남경콘크리트<span className="text-red-500">(주)</span>
               </span>
-              <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700 hidden sm:inline-block">
+              <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded hidden sm:inline-block border ${theme.header.logoBadge}`}>
                 KS인증공장
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 font-mono tracking-wider -mt-0.5">
+            <p className={`text-[11px] font-mono tracking-wider -mt-0.5 ${theme.header.logoSub}`}>
               NAMKYUNG CONCRETE
             </p>
           </div>
@@ -69,8 +68,8 @@ export default function Header() {
               href={link.href}
               className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
                 link.highlight
-                  ? "bg-red-600/10 text-red-400 hover:bg-red-600 hover:text-white border border-red-500/20"
-                  : "text-slate-300 hover:text-white hover:bg-slate-800/80"
+                  ? theme.header.navLinkHighlight
+                  : theme.header.navLink
               }`}
             >
               {link.name}
@@ -95,7 +94,7 @@ export default function Header() {
         {/* Mobile menu button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none"
+          className={`md:hidden p-2 rounded-lg focus:outline-none transition-colors ${theme.header.mobileBtn}`}
           aria-label="메뉴 열기"
         >
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -104,16 +103,16 @@ export default function Header() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-slate-900/98 border-t border-slate-800 px-4 pt-3 pb-6 space-y-2 backdrop-blur-xl animate-in slide-in-from-top-2">
+        <div className={`md:hidden px-4 pt-3 pb-6 space-y-2 backdrop-blur-xl animate-in slide-in-from-top-2 ${theme.header.mobileDrawer}`}>
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between px-4 py-3 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-white transition-colors"
+              className={`flex items-center justify-between px-4 py-3 rounded-lg text-base font-medium transition-colors ${theme.header.mobileDrawerLink}`}
             >
               <span>{link.name}</span>
-              <ChevronRight className="w-4 h-4 text-slate-500" />
+              <ChevronRight className={`w-4 h-4 ${theme.header.mobileDrawerArrow}`} />
             </a>
           ))}
           <div className="pt-3">
