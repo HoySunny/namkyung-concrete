@@ -145,7 +145,8 @@ export default function LocationSection() {
   const naverMapUrl = `https://map.naver.com/v5/search/${encodedAddress}`;
 
   return (
-    <section id="contact" className="py-16 lg:py-24 bg-slate-50 text-slate-900 scroll-mt-16">
+    <section id="contact" className="py-16 lg:py-24 bg-slate-50 text-slate-900 scroll-mt-16 relative">
+      <div id="quote" className="absolute -top-20 pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
