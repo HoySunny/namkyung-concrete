@@ -64,7 +64,7 @@ const structuredData = {
       "@id": "https://namkyung-concrete.com/#organization",
       "name": "남경콘크리트(주)",
       "alternateName": "Namkyung Concrete Co., Ltd.",
-      "telephone": "055-582-4347",
+      "telephone": "055-582-4346",
       "faxNumber": "055-582-4349",
       "address": {
         "@type": "PostalAddress",
@@ -88,7 +88,7 @@ const structuredData = {
       "@id": "https://namkyung-concrete.com/#localbusiness",
       "name": "남경콘크리트(주)",
       "image": "/pic/hero/factory-panoramic.jpg",
-      "telephone": "055-582-4347",
+      "telephone": "055-582-4346",
       "faxNumber": "055-582-4349",
       "priceRange": "$$",
       "address": {

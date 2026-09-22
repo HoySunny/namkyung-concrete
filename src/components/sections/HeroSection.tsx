@@ -53,12 +53,12 @@ export default function HeroSection() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap items-center gap-3 sm:gap-4 mb-14">
             {/* 1. Direct Phone Call (Main Primary Highlight) */}
             <a
-              href={`tel:${companyData.telDirect}`}
+              href="tel:055-582-4346"
               className="flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-base shadow-xl shadow-red-600/40 border border-red-500/80 transition-all transform hover:-translate-y-0.5"
             >
               <Phone className="w-5 h-5 animate-pulse text-white" />
               <span>직통 전화 문의</span>
-              <span className="font-mono text-sm font-semibold opacity-90">({companyData.telDirect})</span>
+              <span className="font-mono text-sm font-semibold opacity-90">(055-582-4346~7)</span>
             </a>
 
             {/* 2. Catalog Download */}

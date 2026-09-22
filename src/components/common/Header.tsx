@@ -81,13 +81,13 @@ export default function Header() {
         {/* Call to Action Button */}
         <div className="hidden sm:flex items-center gap-3">
           <a
-            href={`tel:${companyData.telDirect}`}
+            href="tel:055-582-4346"
             className="flex items-center gap-2.5 px-4 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold text-sm shadow-md shadow-red-600/25 transition-all transform hover:-translate-y-0.5"
           >
             <Phone className="w-4 h-4 animate-bounce" />
             <div className="text-left">
               <span className="text-[10px] block text-red-200 leading-none">빠른 견적/배차 문의</span>
-              <span className="font-mono text-sm leading-tight">{companyData.telDirect}</span>
+              <span className="font-mono text-sm leading-tight font-bold">TEL 055-582-4346~7</span>
             </div>
           </a>
         </div>
@@ -118,11 +118,11 @@ export default function Header() {
           ))}
           <div className="pt-3">
             <a
-              href={`tel:${companyData.telDirect}`}
+              href="tel:055-582-4346"
               className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-red-600 text-white font-bold text-base shadow-lg shadow-red-600/30"
             >
               <Phone className="w-5 h-5" />
-              <span>전화 상담 바로 연결 ({companyData.telDirect})</span>
+              <span>전화 상담 바로 연결 (055-582-4346~7)</span>
             </a>
           </div>
         </div>

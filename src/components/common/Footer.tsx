@@ -56,15 +56,12 @@ export default function Footer() {
                   <div className="mb-1">
                     <span className="text-[11px] text-red-400 font-semibold block">빠른 견적 / 출하 배차 직통</span>
                     <a
-                      href={`tel:${companyData.telDirect}`}
+                      href="tel:055-582-4346"
                       className="text-white font-mono font-bold text-base hover:text-red-400 transition-colors"
                     >
-                      {companyData.telDirect}
+                      TEL 055-582-4346~7
                     </a>
                   </div>
-                  <p className="text-slate-300 font-mono text-xs">
-                    대표 유선: {companyData.tel} / {companyData.telSecondary}
-                  </p>
                   <p className="text-xs text-slate-400">직통 팩스: {companyData.fax}</p>
                 </div>
               </div>
@@ -109,7 +106,13 @@ export default function Footer() {
             <span><strong>대표자:</strong> {companyData.ceo}</span>
             <span><strong>사업자등록번호:</strong> {companyData.businessNumber}</span>
             <span><strong>소재지:</strong> {companyData.address}</span>
-            <span><strong>연락처:</strong> TEL {companyData.tel} / FAX {companyData.fax}</span>
+            <span>
+              <strong>연락처:</strong>{" "}
+              <a href="tel:055-582-4346" className="hover:text-white underline underline-offset-2">
+                TEL {companyData.tel}
+              </a>{" "}
+              / FAX {companyData.fax}
+            </span>
             <span>
               <strong>개인정보보호책임자:</strong> 조재완 (관리부 /{" "}
               <a

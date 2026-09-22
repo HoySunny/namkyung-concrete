@@ -200,10 +200,10 @@ export default function CertificationsSection() {
 
           <div className="flex-shrink-0">
             <a
-              href={`tel:${companyData.telDirect}`}
+              href="tel:055-582-4346"
               className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm shadow-md shadow-red-600/30 transition-all"
             >
-              <span>시험성적서/서류 요청 문의 ({companyData.telDirect})</span>
+              <span>시험성적서/서류 요청 문의 (055-582-4346~7)</span>
             </a>
           </div>
         </div>

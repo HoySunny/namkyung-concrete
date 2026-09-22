@@ -7,6 +7,8 @@ export interface CompanyProfile {
   address: string;
   addressDetail: string;
   tel: string;
+  telDisplay: string;
+  telCall: string;
   telDirect: string;
   telSecondary: string;
   telExtra: string;
@@ -25,9 +27,11 @@ export const companyData: CompanyProfile = {
   businessNumber: "608-81-12411",
   address: "경상남도 함안군 법수면 대송로 290",
   addressDetail: "(대송리 454-1)",
-  tel: "055-582-4347",
-  telDirect: "055-582-4348",
-  telSecondary: "055-582-4346",
+  tel: "055-582-4346~7",
+  telDisplay: "TEL 055-582-4346~7",
+  telCall: "055-582-4346",
+  telDirect: "055-582-4346",
+  telSecondary: "055-582-4347",
   telExtra: "055-585-0025",
   fax: "055-582-4349",
   deliveryPrinciple: "납품장소 차상도 인도 원칙 (현장 하차 시 대형 화물 배차 연계)",
