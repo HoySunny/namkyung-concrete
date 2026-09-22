@@ -134,15 +134,22 @@ export default function CertificationsSection() {
               key={cert.id}
               className="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden hover:border-red-300 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
             >
-              {/* Interactive Certificate Image with Mini Carousel */}
-              <CertCardImage cert={cert} onSelect={handleOpenModal} />
+              {/* Interactive Certificate Image with Mini Carousel (Desktop only: hidden on mobile) */}
+              <div className="hidden md:block">
+                <CertCardImage cert={cert} onSelect={handleOpenModal} />
+              </div>
 
               {/* Certificate Content */}
               <div className="p-5 flex-1 flex flex-col justify-between">
                 <div>
-                  <span className="text-xs text-slate-400 font-mono block mb-1">
-                    {cert.agency}
-                  </span>
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-xs text-slate-500 font-mono block">
+                      {cert.agency}
+                    </span>
+                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-slate-900 text-white md:hidden">
+                      {cert.badge}
+                    </span>
+                  </div>
                   <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug">
                     {cert.title}
                   </h3>
