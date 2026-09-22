@@ -49,39 +49,44 @@ export default function HeroSection() {
             환경표지 획득. 조달청 나라장터 공공구매 다수공급자계약(MAS) 정품 제조 공장입니다.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-14">
+          {/* CTA Buttons - Visitor & On-site manager prioritized sequence */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap items-center gap-3 sm:gap-4 mb-14">
+            {/* 1. Direct Phone Call (Main Primary Highlight) */}
             <a
-              href="#contact"
-              className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-base shadow-xl shadow-red-600/30 transition-all transform hover:-translate-y-0.5"
+              href={`tel:${companyData.telDirect}`}
+              className="flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-base shadow-xl shadow-red-600/40 border border-red-500/80 transition-all transform hover:-translate-y-0.5"
             >
-              <Send className="w-4 h-4" />
-              <span>온라인 견적 문의</span>
+              <Phone className="w-5 h-5 animate-pulse text-white" />
+              <span>직통 전화 문의</span>
+              <span className="font-mono text-sm font-semibold opacity-90">({companyData.telDirect})</span>
             </a>
 
+            {/* 2. Catalog Download */}
             <a
               href="/docs/catalog.pdf"
-              download="남경콘크리트_제품카탈로그.pdf"
-              className="flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-base border border-white/30 backdrop-blur-md transition-all hover:border-white/60"
+              download="남경콘크리트 카달로그.pdf"
+              className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-base border border-white/30 backdrop-blur-md transition-all hover:border-white/60"
             >
               <Download className="w-4 h-4 text-red-400" />
               <span>카탈로그 다운로드</span>
             </a>
 
+            {/* 3. Material Quantity Calculator */}
             <a
               href="#calculator"
-              className="flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-white font-medium text-base border border-slate-700 backdrop-blur-md transition-all hover:border-slate-500"
+              className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-white font-semibold text-base border border-slate-700 backdrop-blur-md transition-all hover:border-slate-500"
             >
               <Calculator className="w-4 h-4 text-amber-400" />
-              <span>물량 계산기</span>
+              <span>자재 물량 계산기</span>
             </a>
 
+            {/* 4. Online Quotation Form */}
             <a
-              href={`tel:${companyData.telDirect}`}
-              className="flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white font-medium text-base border border-slate-700/80 backdrop-blur-md transition-all"
+              href="#quote"
+              className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white font-semibold text-base border border-slate-700/80 backdrop-blur-md transition-all hover:border-slate-500"
             >
-              <Phone className="w-4 h-4 text-emerald-400" />
-              <span>직통 {companyData.telDirect}</span>
+              <Send className="w-4 h-4 text-slate-300" />
+              <span>온라인 견적 문의</span>
             </a>
           </div>
         </div>

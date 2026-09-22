@@ -267,7 +267,10 @@ export default function LocationSection() {
           </div>
 
           {/* Right Column: Quick Quotation Form with Web3Forms & Privacy Consent */}
-          <div className="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xl">
+          <div
+            id="quote"
+            className="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xl scroll-mt-24"
+          >
             <div className="border-b border-slate-100 pb-4 mb-6">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-red-600 uppercase tracking-wider block mb-1">
