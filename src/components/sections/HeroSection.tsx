@@ -7,7 +7,7 @@ import { Phone, Download } from "lucide-react";
 export default function HeroSection() {
   return (
     <section className="relative min-h-[75vh] lg:min-h-[82vh] flex items-center justify-center overflow-hidden bg-slate-100">
-      {/* 1. Full-bleed Background Image with single full-screen 50% white overlay */}
+      {/* 1. Full-bleed Background Image with architectural grid pattern & radial vignette */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <Image
           src="/pic/hero/factory-panoramic.jpg"
@@ -18,26 +18,28 @@ export default function HeroSection() {
           quality={95}
           className="object-cover object-center"
         />
-        {/* 전체 화면을 덮는 단일 화이트 반투명 오버레이 */}
-        <div className="absolute inset-0 bg-white/50" />
+        {/* 1) 건축/설계 도면 도트/그리드 패턴 레이어 */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+        {/* 2) 중앙 텍스트 집중형 소프트 비네팅 레이어 */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.75)_0%,rgba(255,255,255,0.2)_60%,transparent_100%)] pointer-events-none" />
       </div>
 
-      {/* 2. Hero Content (중앙 박스 및 backdrop-filter 완전 제거, 자연스러운 중앙 정렬) */}
+      {/* 2. Hero Content */}
       <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center flex flex-col items-center">
         {/* Main Title */}
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-800 tracking-normal sm:tracking-wide leading-relaxed drop-shadow-sm">
+        <h1 className="text-slate-800 font-bold text-3xl sm:text-5xl leading-snug tracking-normal">
           30년 업력의 기술,
           <br />
           정직한 품질로 증명합니다.
         </h1>
 
         {/* Subtext */}
-        <p className="text-slate-600 font-normal text-base sm:text-lg mt-5 tracking-wide max-w-2xl leading-relaxed">
+        <p className="text-slate-600 font-normal text-base sm:text-lg mt-4 tracking-normal">
           경남 함안 본사 공장 직영 · 속빈콘크리트블록 및 콘크리트 벽돌 영남권 신속 배차
         </p>
 
         {/* Button Group */}
-        <div className="mt-8 flex flex-row justify-center items-center gap-4">
+        <div className="mt-8 flex flex-row justify-center items-center gap-3">
           {/* 1) 전화문의 */}
           <a
             href="tel:055-582-4346"
