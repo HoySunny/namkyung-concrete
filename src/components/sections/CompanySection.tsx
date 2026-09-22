@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { companyData } from "@/data/company";
 import { historyTimeline } from "@/data/history";
 import { Building2, ShieldCheck, Truck, CheckCircle, Calendar, Sparkles } from "lucide-react";
+import { theme } from "@/config/theme";
 
 export default function CompanySection() {
   const [showFullHistory, setShowFullHistory] = useState(false);
@@ -66,51 +67,51 @@ export default function CompanySection() {
         </div>
 
         {/* Company Overview Table & Message */}
-        <div className="bg-slate-900 text-white rounded-3xl p-8 sm:p-12 mb-20 relative overflow-hidden shadow-2xl">
+        <div className={theme.isLight ? "bg-white text-slate-900 rounded-3xl p-8 sm:p-12 mb-20 relative overflow-hidden border border-slate-200 shadow-sm" : "bg-slate-900 text-white rounded-3xl p-8 sm:p-12 mb-20 relative overflow-hidden shadow-2xl"}>
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-5 space-y-4">
-              <span className="text-xs font-bold text-red-400 tracking-wider uppercase">
+              <span className={`text-xs font-bold tracking-wider uppercase ${theme.isLight ? "text-blue-700" : "text-red-400"}`}>
                 CEO Message & Commitment
               </span>
-              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-snug">
+              <h3 className={`text-2xl sm:text-3xl font-extrabold tracking-tight leading-snug ${theme.isLight ? "text-slate-950" : "text-white"}`}>
                 "보이지 않는 벽체 속에서도
                 <br />
                 타협 없는 강도로 답합니다."
               </h3>
-              <p className="text-slate-300 text-sm leading-relaxed">
+              <p className={`text-sm leading-relaxed ${theme.isLight ? "text-slate-600" : "text-slate-300"}`}>
                 콘크리트 제품은 시공 후 마감재 뒤로 가려지지만, 건축물의 수명과 안전을 영구히
                 지탱하는 핵심 골조입니다. 남경콘크리트는 규격과 강도에 한 치의 거짓 없는 정품만을
                 출하할 것을 약속드립니다.
               </p>
-              <div className="pt-2 text-slate-300 text-sm">
-                <span className="font-semibold text-white">대표이사</span> {companyData.ceo}
+              <div className={`pt-2 text-sm ${theme.isLight ? "text-slate-700" : "text-slate-300"}`}>
+                <span className={`font-semibold ${theme.isLight ? "text-slate-950" : "text-white"}`}>대표이사</span> {companyData.ceo}
               </div>
             </div>
 
-            <div className="lg:col-span-7 bg-slate-800/80 rounded-2xl p-6 border border-slate-700">
-              <h4 className="text-sm font-bold text-slate-300 border-b border-slate-700 pb-3 mb-4">
+            <div className={`lg:col-span-7 rounded-2xl p-6 border ${theme.isLight ? "bg-slate-50 border-slate-200" : "bg-slate-800/80 border-slate-700"}`}>
+              <h4 className={`text-sm font-bold border-b pb-3 mb-4 ${theme.isLight ? "text-slate-900 border-slate-200" : "text-slate-300 border-slate-700"}`}>
                 기업 기본 정보 요약
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
                 <div>
-                  <span className="text-slate-400 block mb-0.5">회사명</span>
-                  <span className="font-semibold text-white">{companyData.name} ({companyData.nameEn})</span>
+                  <span className={`block mb-0.5 ${theme.isLight ? "text-slate-500" : "text-slate-400"}`}>회사명</span>
+                  <span className={`font-semibold ${theme.isLight ? "text-slate-950" : "text-white"}`}>{companyData.name} ({companyData.nameEn})</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block mb-0.5">설립일</span>
-                  <span className="font-semibold text-white">{companyData.establishedDate}</span>
+                  <span className={`block mb-0.5 ${theme.isLight ? "text-slate-500" : "text-slate-400"}`}>설립일</span>
+                  <span className={`font-semibold ${theme.isLight ? "text-slate-950" : "text-white"}`}>{companyData.establishedDate}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block mb-0.5">사업자등록번호</span>
-                  <span className="font-semibold text-white font-mono">{companyData.businessNumber}</span>
+                  <span className={`block mb-0.5 ${theme.isLight ? "text-slate-500" : "text-slate-400"}`}>사업자등록번호</span>
+                  <span className={`font-semibold font-mono ${theme.isLight ? "text-slate-950" : "text-white"}`}>{companyData.businessNumber}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block mb-0.5">납품 원칙</span>
-                  <span className="font-semibold text-red-400">차상도 인도 원칙 (화물 배차 연계)</span>
+                  <span className={`block mb-0.5 ${theme.isLight ? "text-slate-500" : "text-slate-400"}`}>납품 원칙</span>
+                  <span className={`font-semibold ${theme.isLight ? "text-red-600" : "text-red-400"}`}>차상도 인도 원칙 (화물 배차 연계)</span>
                 </div>
                 <div className="sm:col-span-2">
-                  <span className="text-slate-400 block mb-0.5">본사 및 공장 소재지</span>
-                  <span className="font-semibold text-white">
+                  <span className={`block mb-0.5 ${theme.isLight ? "text-slate-500" : "text-slate-400"}`}>본사 및 공장 소재지</span>
+                  <span className={`font-semibold ${theme.isLight ? "text-slate-950" : "text-white"}`}>
                     {companyData.address} {companyData.addressDetail}
                   </span>
                 </div>

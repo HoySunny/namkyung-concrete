@@ -14,6 +14,7 @@ import {
   ShieldCheck,
   ChevronDown,
 } from "lucide-react";
+import { theme } from "@/config/theme";
 
 export default function LocationSection() {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -144,7 +145,7 @@ export default function LocationSection() {
   const naverMapUrl = `https://map.naver.com/v5/search/${encodedAddress}`;
 
   return (
-    <section id="contact" className="py-20 lg:py-28 bg-slate-100 text-slate-900 scroll-mt-16">
+    <section id="contact" className="py-16 lg:py-24 bg-slate-50 text-slate-900 scroll-mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -236,30 +237,34 @@ export default function LocationSection() {
             </div>
 
             {/* Truck Dispatch & Access Guide */}
-            <div className="p-6 rounded-3xl bg-slate-900 text-white border border-slate-800 space-y-4 shadow-md">
-              <div className="flex items-center gap-2 text-red-400">
-                <Truck className="w-5 h-5" />
-                <h4 className="font-bold text-base text-white">
+            <div className={`p-6 rounded-3xl space-y-4 border ${
+              theme.isLight
+                ? "bg-white text-slate-900 border-slate-200 shadow-sm"
+                : "bg-slate-900 text-white border-slate-800 shadow-md"
+            }`}>
+              <div className="flex items-center gap-2 text-blue-700">
+                <Truck className="w-5 h-5 text-blue-600" />
+                <h4 className={`font-bold text-base ${theme.isLight ? "text-slate-900" : "text-white"}`}>
                   대형 화물차 진입 경로 및 차상도 인도 안내
                 </h4>
               </div>
-              <ul className="space-y-2.5 text-xs sm:text-sm text-slate-300">
+              <ul className={`space-y-2.5 text-xs sm:text-sm ${theme.isLight ? "text-slate-600" : "text-slate-300"}`}>
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 flex-shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 flex-shrink-0" />
                   <span>
-                    <strong>진입로 규격:</strong> 남해고속도로 함안IC / 군북IC에서 10~15분 거리, 왕복 2차선 대송로 인접으로 <strong>25톤 덤프 및 대형 카고 트럭</strong>의 교행과 회차가 원활합니다.
+                    <strong className={theme.isLight ? "text-slate-900" : "text-white"}>진입로 규격:</strong> 남해고속도로 함안IC / 군북IC에서 10~15분 거리, 왕복 2차선 대송로 인접으로 <strong className={theme.isLight ? "text-slate-900" : "text-white"}>25톤 덤프 및 대형 카고 트럭</strong>의 교행과 회차가 원활합니다.
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 flex-shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 flex-shrink-0" />
                   <span>
-                    <strong>차상도(車上渡) 원칙:</strong> 납품 장소 화물 적재함 위에서 인수인계하는 조건이며, 현장 하차를 위한 지게차 또는 크레인은 현장에서 준비해 주셔야 합니다 (필요시 배차 전 사전 조율).
+                    <strong className={theme.isLight ? "text-slate-900" : "text-white"}>차상도(車上渡) 원칙:</strong> 납품 장소 화물 적재함 위에서 인수인계하는 조건이며, 현장 하차를 위한 지게차 또는 크레인은 현장에서 준비해 주셔야 합니다 (필요시 배차 전 사전 조율).
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 flex-shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-600 mt-2 flex-shrink-0" />
                   <span>
-                    <strong>빠른 견적/출하 직통:</strong> <a href="tel:055-582-4346" className="text-red-600 font-bold hover:underline">TEL 055-582-4346~7</a> (팩스 055-582-4349)
+                    <strong className={theme.isLight ? "text-slate-900" : "text-white"}>빠른 견적/출하 직통:</strong> <a href="tel:055-582-4346" className="text-red-600 font-bold hover:underline">TEL 055-582-4346~7</a> (팩스 055-582-4349)
                   </span>
                 </li>
               </ul>
@@ -303,7 +308,7 @@ export default function LocationSection() {
                 <div className="pt-2">
                   <button
                     onClick={handleResetForm}
-                    className="px-5 py-2.5 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition-colors"
+                    className="px-5 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition-colors shadow-sm"
                   >
                     추가 문의 작성하기
                   </button>

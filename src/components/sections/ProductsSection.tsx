@@ -11,6 +11,7 @@ import {
 } from "@/data/products";
 import SmartImage from "@/components/common/SmartImage";
 import { Copy, Check, ShieldCheck, Box, Layers, Building2, Package, Truck, ArrowRight } from "lucide-react";
+import { theme } from "@/config/theme";
 
 export default function ProductsSection() {
   const [activeTab, setActiveTab] = useState<"brick" | "block_basic" | "block_variant" | "civil" | "materials">("block_basic");
@@ -138,26 +139,34 @@ export default function ProductsSection() {
                     {/* 조달청 물품식별번호 원클릭 복사 바 */}
                     {block.procurementCode && (
                       <div className="pt-2 border-t border-slate-100">
-                        <div className="flex items-center justify-between p-2.5 rounded-lg bg-slate-900 text-white text-xs">
+                        <div className={`flex items-center justify-between p-2.5 rounded-xl border text-xs ${
+                          theme.isLight
+                            ? "bg-blue-50/80 border-blue-200 text-slate-900"
+                            : "bg-slate-900 border-slate-800 text-white"
+                        }`}>
                           <div>
-                            <span className="text-[10px] text-slate-400 block">조달청 식별번호</span>
-                            <span className="font-mono font-bold tracking-wider text-amber-400">
+                            <span className={`text-[10px] block ${theme.isLight ? "text-blue-800 font-semibold" : "text-slate-400"}`}>조달청 식별번호</span>
+                            <span className={`font-mono font-bold tracking-wider ${theme.isLight ? "text-blue-950 font-black" : "text-amber-400"}`}>
                               {block.procurementCode}
                             </span>
                           </div>
                           <button
                             onClick={() => copyToClipboard(block.procurementCode!)}
-                            className="flex items-center gap-1 px-2.5 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 transition-colors"
+                            className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+                              theme.isLight
+                                ? "bg-white hover:bg-blue-100 text-blue-800 border border-blue-300 shadow-sm"
+                                : "bg-slate-800 hover:bg-slate-700 text-slate-200"
+                            }`}
                             title="물품식별번호 복사"
                           >
                             {copiedCode === block.procurementCode ? (
                               <>
-                                <Check className="w-3.5 h-3.5 text-emerald-400" />
-                                <span className="text-emerald-400">복사됨</span>
+                                <Check className="w-3.5 h-3.5 text-emerald-600" />
+                                <span className="text-emerald-700 font-bold">복사됨</span>
                               </>
                             ) : (
                               <>
-                                <Copy className="w-3.5 h-3.5 text-slate-400" />
+                                <Copy className={`w-3.5 h-3.5 ${theme.isLight ? "text-blue-700" : "text-slate-400"}`} />
                                 <span>복사</span>
                               </>
                             )}
@@ -298,16 +307,20 @@ export default function ProductsSection() {
                   </div>
 
                   {/* Procurement Code Box */}
-                  <div className="p-4 rounded-xl bg-slate-900 text-white flex flex-wrap items-center justify-between gap-4">
+                  <div className={`p-4 rounded-xl flex flex-wrap items-center justify-between gap-4 border ${
+                    theme.isLight
+                      ? "bg-blue-50/80 border-blue-200 text-slate-900"
+                      : "bg-slate-900 border-slate-800 text-white"
+                  }`}>
                     <div>
-                      <span className="text-xs text-slate-400 block">조달청 나라장터 물품식별번호</span>
-                      <span className="font-mono text-xl font-extrabold text-amber-400 tracking-wider">
+                      <span className={`text-xs block ${theme.isLight ? "text-blue-800 font-semibold" : "text-slate-400"}`}>조달청 나라장터 물품식별번호</span>
+                      <span className={`font-mono text-xl font-extrabold tracking-wider ${theme.isLight ? "text-blue-950 font-black" : "text-amber-400"}`}>
                         {brick.procurementCode}
                       </span>
                     </div>
                     <button
                       onClick={() => copyToClipboard(brick.procurementCode!)}
-                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-all"
+                      className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-all shadow-sm"
                     >
                       {copiedCode === brick.procurementCode ? (
                         <>
@@ -438,15 +451,19 @@ export default function ProductsSection() {
         {/* Tab 5: 골재 · 레미탈 일괄배차 부자재 */}
         {activeTab === "materials" && (
           <div className="space-y-8 animate-in fade-in duration-300">
-            <div className="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 mb-6">
+            <div className={`rounded-2xl p-6 sm:p-8 mb-6 border ${
+              theme.isLight
+                ? "bg-blue-50/80 border-blue-200 text-slate-900 shadow-sm"
+                : "bg-slate-900 border-slate-800 text-white"
+            }`}>
               <div className="max-w-2xl">
-                <span className="text-xs font-bold text-amber-400 uppercase tracking-wider">
+                <span className={`text-xs font-bold uppercase tracking-wider ${theme.isLight ? "text-blue-700" : "text-amber-400"}`}>
                   One-Stop Concrete Solution
                 </span>
-                <h3 className="text-xl sm:text-2xl font-bold tracking-tight mt-1 mb-2">
+                <h3 className={`text-xl sm:text-2xl font-bold tracking-tight mt-1 mb-2 ${theme.isLight ? "text-slate-950" : "text-white"}`}>
                   벽돌·블록 주문 시 시멘트·골재 일괄 현장 직송
                 </h3>
-                <p className="text-sm text-slate-300 leading-relaxed">
+                <p className={`text-sm leading-relaxed ${theme.isLight ? "text-slate-700" : "text-slate-300"}`}>
                   별도 유통처를 거칠 필요 없이, 남경콘크리트의 대형 덤프(25t, 15t) 및 5t 화물 배차망을 통해
                   품질이 검증된 세척 친모래, 한일/삼표 레미탈 정품, 특수몰탈을 함께 차상도로 인도받으실 수 있습니다.
                 </p>

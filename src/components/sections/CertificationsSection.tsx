@@ -5,6 +5,7 @@ import { certificationsData, CertificationItem } from "@/data/certifications";
 import { companyData } from "@/data/company";
 import SmartImage from "@/components/common/SmartImage";
 import { ShieldCheck, Award, FileCheck, CheckCircle2, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { theme } from "@/config/theme";
 
 // Mini Carousel Subcomponent for individual certificate cards
 function CertCardImage({
@@ -183,16 +184,24 @@ export default function CertificationsSection() {
         </div>
 
         {/* Public Procurement MAS Banner */}
-        <div className="p-8 rounded-3xl bg-slate-900 text-white border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+        <div className={`p-8 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 border ${
+          theme.isLight
+            ? "bg-blue-50/70 border-blue-200 text-slate-900 shadow-sm"
+            : "bg-slate-900 text-white border-slate-800 shadow-xl"
+        }`}>
           <div className="space-y-2 text-center md:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 text-xs font-bold border border-emerald-800">
+            <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold border ${
+              theme.isLight
+                ? "bg-emerald-100 text-emerald-800 border-emerald-300"
+                : "bg-emerald-950 text-emerald-400 border-emerald-800"
+            }`}>
               <CheckCircle2 className="w-3.5 h-3.5" />
               <span>조달청 나라장터 종합쇼핑몰 다수공급자계약(MAS) 업체</span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight">
+            <h3 className={`text-xl sm:text-2xl font-extrabold tracking-tight ${theme.isLight ? "text-slate-950" : "text-white"}`}>
               공공기관 및 관급 현장 납품 서류 완비
             </h3>
-            <p className="text-xs sm:text-sm text-slate-400 max-w-2xl leading-relaxed">
+            <p className={`text-xs sm:text-sm max-w-2xl leading-relaxed ${theme.isLight ? "text-slate-700" : "text-slate-400"}`}>
               KS 시험성적서, 환경표지 인증서, 직접생산확인증명서, 사업자등록증, 국세·지방세 완납증명서 등
               관급 공사 계약에 필요한 모든 증빙 서류를 출하 시 신속히 발행해 드립니다.
             </p>
@@ -302,7 +311,7 @@ export default function CertificationsSection() {
 
             <button
               onClick={() => setSelectedCert(null)}
-              className="w-full py-3 rounded-xl bg-slate-900 text-white text-sm font-bold hover:bg-slate-800 transition-colors"
+              className="w-full py-3 rounded-xl bg-blue-600 text-white text-sm font-bold hover:bg-blue-700 transition-colors shadow-sm"
             >
               창 닫기
             </button>
