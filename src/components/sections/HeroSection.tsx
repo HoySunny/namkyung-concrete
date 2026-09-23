@@ -12,37 +12,27 @@ const PHRASES = [
 export default function HeroSection() {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     const currentFullText = PHRASES[phraseIndex];
     let timer: NodeJS.Timeout;
 
-    if (!isDeleting) {
-      if (currentText.length < currentFullText.length) {
-        timer = setTimeout(() => {
-          setCurrentText(currentFullText.slice(0, currentText.length + 1));
-        }, 90);
-      } else {
-        // 문구 완성 후 대기: 3번 문구는 4.5초간 유지, 1·2번 문구는 1.5초 대기
-        const pauseDuration = phraseIndex === 2 ? 4500 : 1500;
-        timer = setTimeout(() => {
-          setIsDeleting(true);
-        }, pauseDuration);
-      }
+    if (currentText.length < currentFullText.length) {
+      // 한 글자씩 타이핑
+      timer = setTimeout(() => {
+        setCurrentText(currentFullText.slice(0, currentText.length + 1));
+      }, 80);
     } else {
-      if (currentText.length > 0) {
-        timer = setTimeout(() => {
-          setCurrentText(currentFullText.slice(0, currentText.length - 1));
-        }, 45);
-      } else {
-        setIsDeleting(false);
+      // 문구 완성 후 대기: 3번 문구는 4초간 유지, 1·2번 문구는 1.5초 유지 후 지우는 모션 없이 바로 다음 문구로 전환
+      const pauseDuration = phraseIndex === 2 ? 4000 : 1500;
+      timer = setTimeout(() => {
         setPhraseIndex((prev) => (prev + 1) % PHRASES.length);
-      }
+        setCurrentText("");
+      }, pauseDuration);
     }
 
     return () => clearTimeout(timer);
-  }, [currentText, isDeleting, phraseIndex]);
+  }, [currentText, phraseIndex]);
 
   return (
     <section className="relative min-h-[75vh] lg:min-h-[82vh] flex items-center justify-center overflow-hidden bg-slate-100 px-4">
@@ -59,23 +49,23 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* 2. 중앙 플로팅 글래스 캡슐 (완전 고정 규격 + 3단 순환 타이핑 모션) */}
+      {/* 2. 중앙 플로팅 글래스 캡슐 (초기 슬림 비율 복원 + 노-딜리트 타이핑 루프) */}
       <div className="relative z-10 w-full px-4 flex justify-center">
-        <div className="w-[90%] max-w-[560px] h-[64px] sm:h-[72px] mx-auto rounded-full bg-white/85 backdrop-blur-md border border-white/80 shadow-2xl flex items-center justify-center px-6 overflow-hidden">
+        <div className="w-[92%] max-w-4xl h-[56px] sm:h-[62px] mx-auto rounded-full bg-white/80 backdrop-blur-md border border-white/70 shadow-xl flex items-center justify-center px-8 overflow-hidden">
           <div className="flex items-center justify-center w-full text-center">
-            <h1 className="text-slate-900 font-extrabold text-lg sm:text-2xl tracking-tight whitespace-nowrap flex items-center justify-center">
+            <h1 className="text-slate-800 font-bold text-base sm:text-lg tracking-normal whitespace-nowrap flex items-center justify-center">
               {phraseIndex === 2 && (
                 <Image
                   src="/pic/logo/symbol.png"
                   alt="남경콘크리트 심볼"
-                  width={28}
-                  height={28}
-                  className="w-6 h-6 sm:w-7 sm:h-7 object-contain mr-2 sm:mr-2.5 shrink-0 animate-in fade-in duration-300"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5 object-contain mr-2 shrink-0 animate-in fade-in duration-300"
                 />
               )}
               <span>{currentText}</span>
               <span
-                className="inline-block w-[2px] h-5 sm:h-6 ml-1.5 bg-red-600 animate-pulse"
+                className="inline-block w-[2px] h-4 sm:h-5 ml-1 bg-red-600 animate-pulse"
                 aria-hidden="true"
               />
             </h1>
