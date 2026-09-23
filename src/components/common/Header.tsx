@@ -84,7 +84,7 @@ export default function Header() {
             className="bg-red-600 hover:bg-red-700 text-white font-medium text-sm px-4 py-2 rounded-lg flex items-center gap-2 transition-colors shadow-sm whitespace-nowrap"
           >
             <Phone className="w-4 h-4" />
-            <span>견적문의 055-582-4346</span>
+            <span>견적문의</span>
           </a>
           <a
             href="/docs/catalog.pdf"

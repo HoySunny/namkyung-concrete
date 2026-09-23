@@ -119,6 +119,42 @@ export default function CalculatorSection() {
     setLossRate(5);
   };
 
+  const handleApplyToQuote = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const messageText = `[자재계산기 자동입력] ${selectedProduct.name} / 산출수량: ${results.totalPiecesWithLoss.toLocaleString()}장 (약 ${results.palletsNeeded}파레트)`;
+    const quantityText = `${results.totalPiecesWithLoss.toLocaleString()}장 (약 ${results.palletsNeeded}파레트)`;
+
+    let mappedProduct = "6인치 속빈블록 (NK-HB150)";
+    if (selectedProductId === "block-4inch") mappedProduct = "4인치 속빈블록 (NK-HB100)";
+    else if (selectedProductId === "block-6inch") mappedProduct = "6인치 속빈블록 (NK-HB150)";
+    else if (selectedProductId === "block-8inch") mappedProduct = "8인치 속빈블록 (NK-HB190)";
+    else if (selectedProductId.startsWith("brick")) mappedProduct = "기본 2종 콘크리트 벽돌 (KS F 4004)";
+
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent("apply-calc-quote", {
+          detail: {
+            message: messageText,
+            quantity: quantityText,
+            productInterest: mappedProduct,
+          },
+        })
+      );
+
+      const quoteTarget = document.getElementById("quote") || document.getElementById("contact");
+      if (quoteTarget) {
+        quoteTarget.scrollIntoView({ behavior: "smooth" });
+      }
+
+      setTimeout(() => {
+        const textarea = document.querySelector('textarea[name="message"]') as HTMLTextAreaElement | null;
+        if (textarea) {
+          textarea.focus();
+        }
+      }, 500);
+    }
+  };
+
   return (
     <section id="calculator" className={`py-20 lg:py-28 scroll-mt-16 ${theme.calculator.sectionBg}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -410,11 +446,12 @@ export default function CalculatorSection() {
                 className="flex-1 flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white text-sm font-bold shadow-lg shadow-red-600/30 transition-all"
               >
                 <Phone className="w-4 h-4" />
-                <span>계산 결과로 전화 상담 (055-582-4346~7)</span>
+                <span>전화상담</span>
               </a>
-              <a
-                href="#quote"
-                className={`flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl text-sm font-semibold transition-colors ${
+              <button
+                type="button"
+                onClick={handleApplyToQuote}
+                className={`flex-1 flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl text-sm font-semibold transition-colors cursor-pointer ${
                   theme.isLight
                     ? "bg-slate-800 hover:bg-slate-900 text-white"
                     : "bg-slate-700 hover:bg-slate-600 text-white"
@@ -422,7 +459,7 @@ export default function CalculatorSection() {
               >
                 <span>온라인 견적 문의 폼 작성</span>
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </button>
             </div>
           </div>
         </div>

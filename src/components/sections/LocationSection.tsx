@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { companyData } from "@/data/company";
 import {
   MapPin,
@@ -32,6 +32,30 @@ export default function LocationSection() {
     quantity: "",
     message: "",
   });
+
+  // 물량 계산기 산출 결과 자동 연동 이벤트 수신
+  useEffect(() => {
+    const handleApplyQuote = (e: Event) => {
+      const customEvent = e as CustomEvent<{
+        message: string;
+        quantity?: string;
+        productInterest?: string;
+      }>;
+      if (customEvent.detail) {
+        setFormData((prev) => ({
+          ...prev,
+          message: customEvent.detail.message || prev.message,
+          quantity: customEvent.detail.quantity || prev.quantity,
+          productInterest: customEvent.detail.productInterest || prev.productInterest,
+        }));
+      }
+    };
+
+    window.addEventListener("apply-calc-quote", handleApplyQuote);
+    return () => {
+      window.removeEventListener("apply-calc-quote", handleApplyQuote);
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
