@@ -81,18 +81,18 @@ export default function Header() {
         <div className="hidden sm:flex items-center gap-2.5">
           <a
             href="tel:055-582-4346"
-            className="inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm"
+            className="bg-red-600 hover:bg-red-700 text-white font-medium text-sm px-4 py-2 rounded-lg flex items-center gap-2 transition-colors shadow-sm whitespace-nowrap"
           >
             <Phone className="w-4 h-4" />
-            <span>055-582-4346</span>
+            <span>견적문의 055-582-4346</span>
           </a>
           <a
             href="/docs/catalog.pdf"
             download="남경콘크리트 카달로그.pdf"
-            className="inline-flex items-center justify-center gap-2 border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 font-medium px-4 py-2 rounded-lg text-sm transition-colors shadow-sm"
+            className="bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-medium text-sm px-4 py-2 rounded-lg flex items-center gap-1.5 transition-colors shadow-sm whitespace-nowrap"
           >
             <Download className="w-4 h-4 text-slate-600" />
-            <span>카달로그 다운로드</span>
+            <span>카달로그</span>
           </a>
         </div>
 
@@ -123,18 +123,18 @@ export default function Header() {
           <div className="pt-3 space-y-2">
             <a
               href="tel:055-582-4346"
-              className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-red-600 text-white font-bold text-base shadow-lg shadow-red-600/30"
+              className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-red-600 text-white font-medium text-base shadow-lg shadow-red-600/30"
             >
               <Phone className="w-5 h-5" />
-              <span>전화 상담 바로 연결 (055-582-4346)</span>
+              <span>견적문의 055-582-4346</span>
             </a>
             <a
               href="/docs/catalog.pdf"
               download="남경콘크리트 카달로그.pdf"
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-800 font-medium text-sm shadow-sm"
+              className="w-full flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-800 font-medium text-sm shadow-sm"
             >
               <Download className="w-4 h-4 text-slate-600" />
-              <span>카달로그 다운로드</span>
+              <span>카달로그</span>
             </a>
           </div>
         </div>
