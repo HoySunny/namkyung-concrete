@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Phone, Menu, X, ShieldCheck, ChevronRight } from "lucide-react";
+import { Phone, Download, Menu, X, ShieldCheck, ChevronRight } from "lucide-react";
 import { companyData } from "@/data/company";
 import { theme } from "@/config/theme";
 
@@ -77,17 +77,22 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Call to Action Button */}
-        <div className="hidden sm:flex items-center gap-3">
+        {/* Call to Action Buttons */}
+        <div className="hidden sm:flex items-center gap-2.5">
           <a
             href="tel:055-582-4346"
-            className="flex items-center gap-2.5 px-4 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold text-sm shadow-md shadow-red-600/25 transition-all transform hover:-translate-y-0.5"
+            className="inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition-colors shadow-sm"
           >
-            <Phone className="w-4 h-4 animate-bounce" />
-            <div className="text-left">
-              <span className="text-[10px] block text-red-200 leading-none">빠른 견적/배차 문의</span>
-              <span className="font-mono text-sm leading-tight font-bold">055-582-4346</span>
-            </div>
+            <Phone className="w-4 h-4" />
+            <span>055-582-4346</span>
+          </a>
+          <a
+            href="/docs/catalog.pdf"
+            download="남경콘크리트 카달로그.pdf"
+            className="inline-flex items-center justify-center gap-2 border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 font-medium px-4 py-2 rounded-lg text-sm transition-colors shadow-sm"
+          >
+            <Download className="w-4 h-4 text-slate-600" />
+            <span>카달로그 다운로드</span>
           </a>
         </div>
 
@@ -115,13 +120,21 @@ export default function Header() {
               <ChevronRight className={`w-4 h-4 ${theme.header.mobileDrawerArrow}`} />
             </a>
           ))}
-          <div className="pt-3">
+          <div className="pt-3 space-y-2">
             <a
               href="tel:055-582-4346"
               className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-red-600 text-white font-bold text-base shadow-lg shadow-red-600/30"
             >
               <Phone className="w-5 h-5" />
-              <span>전화 상담 바로 연결 (055-582-4346~7)</span>
+              <span>전화 상담 바로 연결 (055-582-4346)</span>
+            </a>
+            <a
+              href="/docs/catalog.pdf"
+              download="남경콘크리트 카달로그.pdf"
+              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-800 font-medium text-sm shadow-sm"
+            >
+              <Download className="w-4 h-4 text-slate-600" />
+              <span>카달로그 다운로드</span>
             </a>
           </div>
         </div>
