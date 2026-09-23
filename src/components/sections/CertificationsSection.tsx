@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { certificationsData, CertificationItem } from "@/data/certifications";
 import { companyData } from "@/data/company";
 import SmartImage from "@/components/common/SmartImage";
-import { ShieldCheck, Award, FileCheck, CheckCircle2, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { ShieldCheck, Award, FileCheck, CheckCircle2, X, ChevronLeft, ChevronRight, Mail } from "lucide-react";
 import { theme } from "@/config/theme";
 
 // Mini Carousel Subcomponent for individual certificate cards
@@ -216,10 +216,11 @@ export default function CertificationsSection() {
 
           <div className="flex-shrink-0">
             <a
-              href="tel:055-582-4346"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm shadow-md shadow-red-600/30 transition-all"
+              href="mailto:namkyung89@naver.com?subject=[남경콘크리트] 시험성적서 및 납품 증빙서류 요청&body=1. 현장명 / 시공사명:%0D%0A2. 요청 서류 (시험성적서 / 친환경인증서 / 직접생산확인 등):%0D%0A3. 서류 수신용 이메일 또는 팩스번호:%0D%0A4. 담당자 연락처:"
+              className="bg-slate-900 hover:bg-slate-800 text-white font-medium text-sm px-6 py-3 rounded-lg shadow-sm inline-flex items-center gap-2 transition-colors"
             >
-              <span>시험성적서/서류 요청 문의 (055-582-4346~7)</span>
+              <Mail className="w-4 h-4" />
+              <span>시험성적서 및 증빙서류 이메일 요청</span>
             </a>
           </div>
         </div>

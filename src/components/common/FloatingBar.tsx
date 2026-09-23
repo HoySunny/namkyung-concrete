@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Phone, Calculator, ArrowUp } from "lucide-react";
-import { companyData } from "@/data/company";
+import { Phone, Download, ArrowUp } from "lucide-react";
 import { theme } from "@/config/theme";
 
 export default function FloatingBar() {
@@ -33,22 +32,25 @@ export default function FloatingBar() {
         </button>
       )}
 
-      {/* Mobile Bottom Floating Action Bar (SPEC.md requirement: 모바일 하단 고정 플로팅 바) */}
-      <div className={`md:hidden fixed bottom-0 left-0 right-0 z-40 p-2.5 backdrop-blur-xl flex items-center gap-2 ${theme.floatingBar.bottomBar}`}>
+      {/* Mobile Bottom Floating Action Bar (2버튼 5:5 그리드 미니멀 개편) */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 border-t border-slate-200 px-4 py-2.5 pb-safe grid grid-cols-2 gap-3">
+        {/* 버튼 1 [카달로그] */}
         <a
-          href="#calculator"
-          className={`flex-1 flex items-center justify-center gap-2 py-3 px-3 rounded-xl text-sm font-semibold transition-colors ${theme.floatingBar.calcBtn}`}
+          href="/docs/catalog.pdf"
+          download="남경콘크리트 카달로그.pdf"
+          className="bg-white border border-slate-300 text-slate-800 font-medium py-3 rounded-lg shadow-sm flex items-center justify-center gap-1.5"
         >
-          <Calculator className="w-4 h-4 text-red-500" />
-          <span>물량 계산기</span>
+          <Download className="w-4 h-4 text-slate-600" />
+          <span>카달로그</span>
         </a>
 
+        {/* 버튼 2 [전화상담] */}
         <a
           href="tel:055-582-4346"
-          className={`flex-1 flex items-center justify-center gap-2 py-3 px-3 rounded-xl text-sm font-bold shadow-lg shadow-red-600/30 transition-colors ${theme.floatingBar.phoneBtn}`}
+          className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg shadow-md flex items-center justify-center gap-1.5"
         >
-          <Phone className="w-4 h-4 animate-pulse" />
-          <span>전화상담 (055-582-4346~7)</span>
+          <Phone className="w-4 h-4" />
+          <span>전화상담</span>
         </a>
       </div>
     </>
