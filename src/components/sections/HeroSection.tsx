@@ -51,9 +51,9 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* 2. 중앙 플로팅 캡슐 바 (블러 제거, bg-white/50, 레드 테두리 border-red-500/80 shadow-lg) */}
+      {/* 2. 중앙 플로팅 캡슐 바 (블러 제거, bg-white/80, 레드 테두리 border-red-500/80 shadow-lg) */}
       <div className="relative z-10 w-full px-4 flex justify-center">
-        <div className="w-[92%] max-w-4xl h-[56px] sm:h-[62px] mx-auto rounded-full bg-white/50 border border-red-500/80 shadow-lg flex items-center justify-center px-8 overflow-hidden">
+        <div className="w-[92%] max-w-4xl h-[56px] sm:h-[62px] mx-auto rounded-full bg-white/80 border border-red-500/80 shadow-lg flex items-center justify-center px-8 overflow-hidden">
           <div className="flex items-center justify-center w-full text-center">
             <h1 className="text-slate-800 font-bold text-base sm:text-lg tracking-normal whitespace-nowrap flex items-center justify-center">
               {phraseIndex === 2 && (
