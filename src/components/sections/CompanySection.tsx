@@ -25,7 +25,7 @@ export default function CompanySection() {
     {
       icon: <Truck className="w-6 h-6 text-red-600" />,
       title: "자재 일괄 배차 원스톱 공급망",
-      desc: "블록·벽돌뿐만 아니라 친모래, 톤백모래, 석분, 자갈, 레미탈, 특수시멘트까지 공사 현장에 맞춰 대형 덤프 및 화물차로 일괄 차상도 인도합니다.",
+      desc: "블록·벽돌뿐만 아니라 친모래, 톤백모래, 석분, 자갈, 레미탈, 특수시멘트까지 공사 현장에 맞춰 대형 덤프 및 화물차로 일괄 공급 및 직배송합니다.",
     },
   ];
 
@@ -129,8 +129,8 @@ export default function CompanySection() {
                   <span className={`font-semibold font-mono ${theme.isLight ? "text-slate-950" : "text-white"}`}>{companyData.businessNumber}</span>
                 </div>
                 <div>
-                  <span className={`block mb-0.5 ${theme.isLight ? "text-slate-500" : "text-slate-400"}`}>납품 원칙</span>
-                  <span className={`font-semibold ${theme.isLight ? "text-red-600" : "text-red-400"}`}>차상도 인도 원칙 (화물 배차 연계)</span>
+                  <span className={`block mb-0.5 ${theme.isLight ? "text-slate-500" : "text-slate-400"}`}>배차 및 납품</span>
+                  <span className={`font-semibold ${theme.isLight ? "text-red-600" : "text-red-400"}`}>현장 맞춤 화물 배차 연계 (영남권 전역)</span>
                 </div>
                 <div className="sm:col-span-2">
                   <span className={`block mb-0.5 ${theme.isLight ? "text-slate-500" : "text-slate-400"}`}>본사 및 공장 소재지</span>

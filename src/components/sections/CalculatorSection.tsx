@@ -422,7 +422,7 @@ export default function CalculatorSection() {
                   </span>
                 </div>
                 <div className={`text-[11px] mt-1.5 ${theme.calculator.unitText}`}>
-                  현장 차상도 인도 원칙
+                  현장 맞춤 화물 배차
                 </div>
               </div>
             </div>

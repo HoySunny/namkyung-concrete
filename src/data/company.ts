@@ -34,7 +34,7 @@ export const companyData: CompanyProfile = {
   telSecondary: "055-582-4347",
   telExtra: "055-585-0025",
   fax: "055-582-4349",
-  deliveryPrinciple: "납품장소 차상도 인도 원칙 (현장 하차 시 대형 화물 배차 연계)",
+  deliveryPrinciple: "영남권 전역 신속 배차 (현장 맞춤 화물 배차 연계)",
   slogan: "30년의 단단한 기초, 정직한 품질로 증명합니다",
   subSlogan: "KS 인증 및 친환경 환경표지 획득, 조달청 나라장터 관급 계약 제조 공장",
   historyHighlight: "30여 년 업력의 콘크리트 2차 제품 및 골재·레미탈 일괄 공급 거점",

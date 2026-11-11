@@ -270,7 +270,7 @@ export default function LocationSection() {
               <div className="flex items-center gap-2 text-blue-700">
                 <Truck className="w-5 h-5 text-blue-600" />
                 <h4 className={`font-bold text-base ${theme.isLight ? "text-slate-900" : "text-white"}`}>
-                  대형 화물차 진입 경로 및 차상도 인도 안내
+                  대형 화물차 진입 경로 및 현장 배차 안내
                 </h4>
               </div>
               <ul className={`space-y-2.5 text-xs sm:text-sm ${theme.isLight ? "text-slate-600" : "text-slate-300"}`}>
@@ -283,7 +283,7 @@ export default function LocationSection() {
                 <li className="flex items-start gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 flex-shrink-0" />
                   <span>
-                    <strong className={theme.isLight ? "text-slate-900" : "text-white"}>차상도(車上渡) 원칙:</strong> 납품 장소 화물 적재함 위에서 인수인계하는 조건이며, 현장 하차를 위한 지게차 또는 크레인은 현장에서 준비해 주셔야 합니다 (필요시 배차 전 사전 조율).
+                    <strong className={theme.isLight ? "text-slate-900" : "text-white"}>현장 하차 안내:</strong> 현장 도착 후 신속한 인수인계를 위해 지게차 또는 하차 장비를 사전 준비해 주시기 바랍니다 (필요시 배차 전 사전 조율).
                   </span>
                 </li>
                 <li className="flex items-start gap-2">

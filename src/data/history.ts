@@ -64,7 +64,7 @@ export const historyTimeline: HistoryItem[] = [
     year: "현재",
     month: "도약",
     title: "영남권 최대 콘크리트 2차 제품 및 원스톱 배차 거점",
-    description: "블록·벽돌뿐만 아니라 친모래, 자갈, 레미탈, 특수몰탈 일괄 차상도 직송 시스템 운영",
+    description: "블록·벽돌뿐만 아니라 친모래, 자갈, 레미탈, 특수몰탈 일괄 현장 직송 시스템 운영",
     highlight: true,
   },
 ];

@@ -84,14 +84,14 @@ export default function Footer() {
           {/* Delivery & Procurement Note */}
           <div className="md:col-span-3 space-y-3">
             <h4 className={theme.footer.heading}>
-              배차 인도 원칙
+              배차 및 납품 안내
             </h4>
             <div className={theme.footer.box}>
               <p className={theme.footer.boxHeading}>
-                납품장소 차상도(車上渡) 인도 원칙
+                현장 직배송 및 화물 배차 연계
               </p>
               <p className="leading-relaxed">
-                운송 차량 도착 후 화물 적재함 위에서 인계하며, 현장 지게차/크레인 하차 조건 또는 대형 화물(25t/15t/5t) 연계 배차가 지원됩니다.
+                공장 직영 신속 출하 시스템으로 현장 조건에 맞춘 대형 화물(25t/15t/5t) 연계 배차가 지원됩니다.
               </p>
               <p className="text-[11px] text-red-600 font-medium">
                 * 조달청 나라장터 공공구매 다수공급자계약(MAS) 등록업체

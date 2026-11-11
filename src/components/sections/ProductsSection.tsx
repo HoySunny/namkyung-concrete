@@ -467,7 +467,7 @@ export default function ProductsSection() {
                 </h3>
                 <p className={`text-sm leading-relaxed ${theme.isLight ? "text-slate-700" : "text-slate-300"}`}>
                   별도 유통처를 거칠 필요 없이, 남경콘크리트의 대형 덤프(25t, 15t) 및 5t 화물 배차망을 통해
-                  품질이 검증된 세척 친모래, 한일/삼표 레미탈 정품, 특수몰탈을 함께 차상도로 인도받으실 수 있습니다.
+                  품질이 검증된 세척 친모래, 한일/삼표 레미탈 정품, 특수몰탈을 현장에서 함께 원스톱으로 공급받으실 수 있습니다.
                 </p>
               </div>
             </div>
