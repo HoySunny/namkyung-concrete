@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   verification: {
-    google: "swNWcKtBc2ClfIcXTJLzJ8TyJIfBUvgC5AguQLb_u98",
+    google: "XMwUPoi9yioZ2UG9IYwsCRHwjv4SwipinxAMzNmuLBM",
     other: {
       "naver-site-verification": "55b225681bf19268fee63221f2e7724c75225740",
     },
@@ -156,10 +156,6 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
-        <meta
-          name="google-site-verification"
-          content="swNWcKtBc2ClfIcXTJLzJ8TyJIfBUvgC5AguQLb_u98"
-        />
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
