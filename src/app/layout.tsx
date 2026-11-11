@@ -32,10 +32,7 @@ export const metadata: Metadata = {
   verification: {
     google: "swNWcKtBc2ClfIcXTJLzJ8TyJIfBUvgC5AguQLb_u98",
     other: {
-      // 네이버 서치어드바이저에서 발급받은 인증코드(content 값)로 교체해 주세요
-      "naver-site-verification":
-        process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION ||
-        "NAVER_VERIFICATION_CODE_HERE",
+      "naver-site-verification": "55b225681bf19268fee63221f2e7724c75225740",
     },
   },
   openGraph: {
