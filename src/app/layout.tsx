@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://namkyung-concrete.vercel.app";
+
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://namkyung-concrete.vercel.app"
-  ),
+  metadataBase: new URL(SITE_URL),
   title: "남경콘크리트(주) - 30년 전통의 콘크리트 벽돌·블록 제조 전문 기업",
   description:
     "KS F 4004 콘크리트 벽돌, KS F 4002 C종 속빈블록(4/6/8인치), 환경부 친환경 표지 인증, 조달청 나라장터 MAS 관급 납품. 경남 함안 대규모 제조 공장 및 모래·자갈·레미탈 원스톱 배차 시스템.",
@@ -25,12 +26,23 @@ export const metadata: Metadata = {
     "친모래",
   ],
   authors: [{ name: "남경콘크리트(주)" }],
+  alternates: {
+    canonical: "/",
+  },
   verification: {
     google: "swNWcKtBc2ClfIcXTJLzJ8TyJIfBUvgC5AguQLb_u98",
+    other: {
+      // 네이버 서치어드바이저에서 발급받은 인증코드(content 값)로 교체해 주세요
+      "naver-site-verification":
+        process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION ||
+        "NAVER_VERIFICATION_CODE_HERE",
+    },
   },
   openGraph: {
     title: "남경콘크리트(주) - 30년의 단단한 기초, 정직한 품질",
     description: "KS F 4004 벽돌 / KS F 4002 C종 블록 환경표지 획득 및 조달청 관급 등록 전문 제조공장",
+    url: SITE_URL,
+    siteName: "남경콘크리트(주)",
     type: "website",
     locale: "ko_KR",
     images: [
@@ -61,7 +73,8 @@ const structuredData = {
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://namkyung-concrete.com/#organization",
+      "@id": `${SITE_URL}/#organization`,
+      "url": SITE_URL,
       "name": "남경콘크리트(주)",
       "alternateName": "Namkyung Concrete Co., Ltd.",
       "telephone": "055-582-4346",
@@ -85,9 +98,10 @@ const structuredData = {
     },
     {
       "@type": "LocalBusiness",
-      "@id": "https://namkyung-concrete.com/#localbusiness",
+      "@id": `${SITE_URL}/#localbusiness`,
+      "url": SITE_URL,
       "name": "남경콘크리트(주)",
-      "image": "/pic/hero/factory-panoramic.jpg",
+      "image": `${SITE_URL}/pic/hero/factory-panoramic.jpg`,
       "telephone": "055-582-4346",
       "faxNumber": "055-582-4349",
       "priceRange": "$$",
